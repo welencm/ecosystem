@@ -1,19 +1,22 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-Vagrant.configure("2") do |config|
-  config.vm.box = "ubuntu/xenial64"
-  
-  config.vm.hostname = "desktop.ecosystem"
+Vagrant.configure("2") do |node|
+  node.vm.box = "ubuntu/xenial64"
+  node.vm.hostname = "desktop.ecosystem"
 
-  config.vm.provider "virtualbox" do |vb|
+  node.vm.network "private_network", ip: "10.0.0.11"
+  node.vm.network "forwarded_port", guest: 22, host: 4422
+  node.vm.network "forwarded_port", guest: 3389, host: 4489
+
+  node.vm.provision "shell", path: "../controller/provision.sh"
+  node.vm.provision "file", source: "../controller/.bashrc", destination: ".bashrc"
+
+  node.vm.synced_folder "../../ansible/", "/ansible"
+
+  node.vm.provider "virtualbox" do |vb|
     vb.name = "desktop"
     vb.cpus = 2
     vb.memory = 4096
   end
-
-  config.vm.network "forwarded_port", guest: 22, host: 4422
-  config.vm.network "forwarded_port", guest: 3389, host: 4489
-
-  config.vm.provision "shell", path: "provision.sh"
 end

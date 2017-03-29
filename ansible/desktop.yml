@@ -1,0 +1,5 @@
+---
+- hosts: desktop
+  roles:
+    - common
+    - xfce-desktop
