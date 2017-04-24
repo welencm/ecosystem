@@ -1,6 +1,6 @@
 ---
 - name: "Install useful packages"
-  apt:
+  package:
     name: "{{ item }}"
     state: present
     update_cache: yes
@@ -9,3 +9,11 @@
     - git
     - python-pip
   become: true
+
+- include: debian.yml
+  when:
+    - ansible_os_family == "Debian"
+
+- include: redhat.yml
+  when:
+    - ansible_os_family == "RedHat"

@@ -1,3 +1,10 @@
-[ecosystem]
-controller
-desktop
+[ecosystem:children]
+ecosystem-desktop
+ecosystem-other
+
+[ecosystem-desktop]
+desktop-ubuntu  ansible_user=ubuntu
+desktop-centos  ansible_user=vagrant
+
+[ecosystem-other]
+controller      ansible_user=ubuntu

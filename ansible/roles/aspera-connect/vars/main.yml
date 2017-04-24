@@ -1,0 +1,4 @@
+---
+aspera:
+  package: "aspera-connect-3.7.1.139846-linux-64"
+  url: "http://download.asperasoft.com/download/sw/connect/3.7.1/aspera-connect-3.7.1.139846-linux-64.tar.gz"

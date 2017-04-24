@@ -1,0 +1,51 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+require 'yaml'
+nodes = YAML.load_file('vagrant-inventory.yml')
+
+Vagrant.configure(2) do |config|
+  nodes.each do |nodes|
+    config.vm.define nodes["name"] do |node|
+      # vm settings
+      node.vm.box = nodes["box"]
+      node.vm.hostname = nodes["name"]
+      node.vm.box_check_update = nodes["check_updates"]
+      node.vm.network nodes["net"], ip: nodes["ip"]
+
+      # virtualbox settings
+      node.vm.provider "virtualbox" do |vb|
+          vb.name = nodes["name"]
+          vb.memory = nodes["mem"]
+          vb.cpus = nodes["cpus"]
+      end
+
+      # ports
+      if nodes["ssh_host_port"] and nodes["ssh_guest_port"]
+          node.vm.network "forwarded_port", guest: nodes["ssh_guest_port"], host: nodes["ssh_host_port"], id: 'ssh'
+      end
+      if nodes["rdp_host_port"] and nodes["rdp_guest_port"]
+          node.vm.network "forwarded_port", guest: nodes["rdp_guest_port"], host: nodes["rdp_host_port"], id: 'rdp'
+      end
+      if nodes["forward_host_port"] and nodes["forward_guest_port"]
+          node.vm.network "forwarded_port", guest: nodes["forward_host_port"], host: nodes["forward_guest_port"]
+      end
+
+      # synced folders
+      node.vm.synced_folder "../ansible/", "/ansible"
+
+      # provisioning
+      node.vm.provision "file", source: ".bashrc", destination: ".bashrc"
+      if nodes["script"]
+          node.vm.provision "shell", path: nodes["script"], privileged: false
+      end
+      if nodes["ansible"]
+        node.vm.provision "ansible_local" do |ansible|
+          ansible.playbook = nodes["ansible"]
+          ansible.provisioning_path = "/ansible"
+        end
+      end
+
+    end
+  end
+end

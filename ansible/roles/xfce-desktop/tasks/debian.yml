@@ -1,0 +1,16 @@
+---
+- name: "Install xfce4 desktop"
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  with_items:
+      - xfce4
+      - xfce4-goodies
+  become: true
+
+- name: "Install xrdp"
+  apt:
+    name: xrdp
+    state: present
+  become: true

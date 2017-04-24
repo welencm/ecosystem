@@ -1,16 +1,10 @@
 ---
-- name: "Install xfc4 desktop"
-  apt:
-    name: "{{ item }}"
-    state: present
-    update_cache: yes
-  with_items:
-      - xfce4
-      - xfce4-goodies
-  become: true
+- include: debian.yml
+  when:
+    - ansible_os_family == "Debian"
 
-- name: "Install xrdp"
-  apt:
-    name: xrdp
-    state: present
-  become: yes
+- include: redhat.yml
+  when:
+    - ansible_os_family == "RedHat"
+
+- include: customize.yml

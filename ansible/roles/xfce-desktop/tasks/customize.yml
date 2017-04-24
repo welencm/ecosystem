@@ -1,0 +1,21 @@
+---
+- name: "Create xfce4 config directory"
+  file:
+    path: "{{ ansible_user_dir }}/.config/xfce4"
+    state: directory
+
+- name: "Apply xfce4 default panel settings"
+  shell: "cp -r /etc/xdg/xfce4/panel {{ ansible_user_dir }}/.config/xfce4"
+
+- name: "Apply xfce4 default configuration settings"
+  shell: "cp -r /etc/xdg/xfce4/xfconf {{ ansible_user_dir }}/.config/xfce4"
+
+- name: "Disable tab window switching"
+  shell: "sed -i 's|switch_window_key|empty|g' {{ ansible_user_dir }}/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-keyboard-shortcuts.xml"
+
+- name: "Set file ownership"
+  file:
+    path: "{{ ansible_user_dir }}/.config"
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_gid }}"
+    recurse: yes

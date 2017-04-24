@@ -1,0 +1,22 @@
+---
+- name: "Download tarball"
+  get_url:
+    url: "{{ aspera.url }}"
+    dest: "{{ ansible_user_dir }}/{{ aspera.package }}.tar.gz"
+
+- name: "Unpack"
+  unarchive:
+    src: "{{ ansible_user_dir }}/{{ aspera.package }}.tar.gz"
+    dest: "{{ ansible_user_dir }}"
+    remote_src: yes
+
+- name: "Install"
+  shell: "{{ ansible_user_dir }}/{{ aspera.package }}.sh"
+
+- name: "Remove installation files"
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_items:
+    - "{{ ansible_user_dir }}/{{ aspera.package }}.sh"
+    - "{{ ansible_user_dir }}/{{ aspera.package }}.tar.gz"
