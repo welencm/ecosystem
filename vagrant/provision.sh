@@ -15,8 +15,7 @@ fi
 echo "[INFO] Configure hosts file"
 sudo tee -a /etc/hosts > /dev/null <<EOL
 10.0.0.10 controller
-10.0.0.11 desktop-ubuntu
-10.0.0.12 desktop-centos
+10.0.0.20 desktop-ubuntu
 EOL
 
 echo "[INFO] Generate SSH key"

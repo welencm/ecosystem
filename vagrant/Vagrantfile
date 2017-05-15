@@ -21,14 +21,10 @@ Vagrant.configure(2) do |config|
       end
 
       # ports
-      if nodes["ssh_host_port"] and nodes["ssh_guest_port"]
-          node.vm.network "forwarded_port", guest: nodes["ssh_guest_port"], host: nodes["ssh_host_port"], id: 'ssh'
-      end
-      if nodes["rdp_host_port"] and nodes["rdp_guest_port"]
-          node.vm.network "forwarded_port", guest: nodes["rdp_guest_port"], host: nodes["rdp_host_port"], id: 'rdp'
-      end
-      if nodes["forward_host_port"] and nodes["forward_guest_port"]
-          node.vm.network "forwarded_port", guest: nodes["forward_host_port"], host: nodes["forward_guest_port"]
+      if nodes["ports"].length > 0
+        nodes["ports"].each do |port|
+          node.vm.network "forwarded_port", guest: port["guest"], host: port["host"], id: port["id"]
+        end
       end
 
       # synced folders
