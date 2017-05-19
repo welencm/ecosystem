@@ -3,31 +3,46 @@
   box: ubuntu/xenial64
   check_updates: false
   net: private_network
-  ip: 10.0.0.10
+  ip: 10.0.0.20
   mem: 1024
   cpus: 1
   ports:
     - id: ssh
       guest: 22
-      host: 1022
+      host: 2022
   script: provision.sh
+  ansible: controller.yml
 
 - name: desktop-ubuntu
   box: ubuntu/xenial64
   check_updates: false
   net: private_network
-  ip: 10.0.0.20
+  ip: 10.0.0.30
   mem: 4096
   cpus: 2
   ports:
     - id: ssh
       guest: 22
-      host: 2022
+      host: 3022
     - id: rdp
       guest: 3389
-      host: 2089
+      host: 3089
   script: provision.sh
   ansible: desktop-ubuntu.yml
+
+- name: general-windows-2012
+  box: windows/2012r2
+  check_updates: false
+  net: private_network
+  ip: 10.0.0.60
+  mem: 4096
+  cpus: 2
+  ports:
+    - id: rdp
+      guest: 3389
+      host: 6089
+  gui: true
+
 
 # # vagrant plugin install vagrant-vbguest
 # - name: desktop-centos

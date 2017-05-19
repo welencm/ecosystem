@@ -1,5 +1,5 @@
 ---
-- name: "Install Debian useful packages"
+- name: "install Debian useful packages"
   apt:
     name: "{{ item }}"
     state: present
@@ -7,4 +7,6 @@
   with_items:
     - unattended-upgrades
     - ssh
+    - tmux
+    - ncdu
   become: true

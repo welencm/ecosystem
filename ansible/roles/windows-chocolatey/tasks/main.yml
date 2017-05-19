@@ -1,0 +1,9 @@
+---
+- name: "try command choco"
+  win_command: choco -v
+  register: result
+  ignore_errors: true
+
+- name: "install chocolatey"
+  include: chocolatey.yml
+  when: result|failed

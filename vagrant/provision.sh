@@ -14,8 +14,9 @@ fi
 
 echo "[INFO] Configure hosts file"
 sudo tee -a /etc/hosts > /dev/null <<EOL
-10.0.0.10 controller
-10.0.0.20 desktop-ubuntu
+10.0.0.20 controller
+10.0.0.30 desktop-ubuntu
+10.0.0.60 general-windows-2012
 EOL
 
 echo "[INFO] Generate SSH key"

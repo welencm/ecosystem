@@ -1,0 +1,5 @@
+---
+- hosts: general-windows-2012
+  roles:
+    - windows-chocolatey
+    - windows-common    

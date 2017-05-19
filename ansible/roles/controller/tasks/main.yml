@@ -1,0 +1,4 @@
+---
+- name: "pip : install pywinrm"
+  pip:
+    name: pywinrm

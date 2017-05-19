@@ -13,11 +13,23 @@ Vagrant.configure(2) do |config|
       node.vm.box_check_update = nodes["check_updates"]
       node.vm.network nodes["net"], ip: nodes["ip"]
 
+      # settings for windows
+      if nodes["box"].include? "windows"
+        node.vm.guest = :windows
+        node.vm.communicator = "winrm"
+      end
+
       # virtualbox settings
       node.vm.provider "virtualbox" do |vb|
           vb.name = nodes["name"]
           vb.memory = nodes["mem"]
           vb.cpus = nodes["cpus"]
+
+          # gui settings
+          if nodes["gui"] == "true"
+            vb.gui = nodes["gui"]
+            vb.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
+          end
       end
 
       # ports

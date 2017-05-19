@@ -8,3 +8,6 @@ desktop-centos  ansible_user=vagrant
 
 [ecosystem-other]
 controller      ansible_user=ubuntu
+
+[windows]
+general-windows-2012
