@@ -1,0 +1,6 @@
+---
+- hosts: general-ubuntu
+  roles:
+    - common
+    - java
+    - misys

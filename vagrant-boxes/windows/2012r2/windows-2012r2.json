@@ -1,0 +1,28 @@
+{
+  "name": "windows/2012r2",
+  "description": "Base box with Windows 2012r2",
+  "versions": [
+    {
+      "version": "0.1.1",
+      "providers": [
+        {
+          "name": "virtualbox",
+          "url": "http://localhost/vagrant/windows-2012r2_0.1.1.box",
+          "checksum_type": "sha1",
+          "checksum": "3f3b9ebca474f564e5ea2e769417f0d8974f1b28"
+        }
+      ]
+    },
+    {
+      "version": "0.1.0",
+      "providers": [
+        {
+          "name": "virtualbox",
+          "url": "http://localhost/vagrant/windows-2012r2_0.1.0.box",
+          "checksum_type": "sha1",
+          "checksum": "8519b676392abdca8661438665f6406b1b33ae9e"
+        }
+      ]
+    }
+  ]
+}

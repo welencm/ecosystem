@@ -1,0 +1,27 @@
+---
+- name: "download python 2.7.13 x86"
+  win_get_url:
+    url: "{{ python.url }}"
+    dest: "{{ ansible_user_dir }}\\{{ python.installer }}"
+    force: no
+
+- name: "install python 2.7.13 x86"
+  win_shell: "msiexec /a {{ python.installer }} /q"
+
+- name: "add python to PATH"
+  win_path:
+    elements:
+    - "C:\\Python27"
+
+- name: "clean python 2.7.13 x86 installer"
+  win_file:
+    path: "{{ python.installer }}"
+    state: absent
+  tags:
+    - cleanup
+
+- name: "download pywin"
+  win_get_url:
+    url: "{{ pywin.url }}"
+    dest: "{{ ansible_user_dir }}\\{{ pywin.installer }}"
+    force: no

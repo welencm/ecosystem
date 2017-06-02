@@ -1,6 +1,10 @@
 [ecosystem:children]
 ecosystem-desktop
 ecosystem-other
+ecosystem-general
+
+[ecosystem-general]
+general-ubuntu  ansible_user=ubuntu
 
 [ecosystem-desktop]
 desktop-ubuntu  ansible_user=ubuntu
@@ -11,3 +15,7 @@ controller      ansible_user=ubuntu
 
 [windows]
 general-windows-2012
+general-windows-2008
+
+[local]
+localhost       ansible_connection=local

@@ -1,0 +1,39 @@
+{
+  "name": "windows/2008r2",
+  "description": "Base box with Windows 2008r2 sp1",
+  "versions": [
+    {
+      "version": "0.2.1",
+      "providers": [
+        {
+          "name": "virtualbox",
+          "url": "http://localhost/vagrant/windows-2008r2_0.2.1.box",
+          "checksum_type": "sha1",
+          "checksum": "092470485450f811e90048616c3a8691e734ab27"
+        }
+      ]
+    },
+    {
+      "version": "0.2.0",
+      "providers": [
+        {
+          "name": "virtualbox",
+          "url": "http://localhost/vagrant/windows-2008r2_0.2.0.box",
+          "checksum_type": "sha1",
+          "checksum": "13fb9926937fb4efa526c11ea35f175d183e9789"
+        }
+      ]
+    },
+    {
+      "version": "0.1.0",
+      "providers": [
+        {
+          "name": "virtualbox",
+          "url": "http://localhost/vagrant/windows-2008r2_0.1.0.box",
+          "checksum_type": "sha1",
+          "checksum": "2c53602edb5836fd6fa5cca1bd5d2ecd80392591"
+        }
+      ]
+    }
+  ]
+}

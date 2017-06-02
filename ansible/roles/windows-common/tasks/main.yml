@@ -1,4 +1,13 @@
 ---
+- name: "try command choco"
+  win_command: choco -v
+  register: result
+  ignore_errors: true
+
+- name: "install chocolatey"
+  include: chocolatey.yml
+  when: result|failed
+
 - name: "install git"
   win_chocolatey:
     name: git
@@ -14,7 +23,22 @@
     name: 7zip
     state: present
 
-- name: "install Python 2.X"
+# - name: "install python2"
+#   win_chocolatey:
+#     name: python2
+#     state: present
+
+- name: "install ActivePerl"
   win_chocolatey:
-    name: python2
+    name: activeperl
     state: present
+
+- name: "install JDK8"
+  win_chocolatey:
+    name: jdk8
+    state: present
+
+# - name: "install pscx"
+#   win_chocolatey:
+#     name: pscx
+#     state: present

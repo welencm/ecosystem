@@ -1,0 +1,28 @@
+---
+url_prefix: http://10.22.11.12/software
+
+visualstudio:
+  2005:
+    version: 2005
+    iso:
+      filename: "en_vs_2005_pro_dvd.iso"
+      url: "{{ url_prefix }}/en_vs_2005_pro_dvd.iso"
+    installer:
+      path: "{{ ansible_user_dir }}\\visualstudio2005"
+      ini: "vs2005.ini"
+  2008:
+    version: 2008
+    iso:
+      filename: "en_visual_studio_2008_professional_x86_dvd_x14-26326.iso"
+      url: "{{ url_prefix }}/en_visual_studio_2008_professional_x86_dvd_x14-26326.iso"
+    installer:
+      path: "{{ ansible_user_dir }}\\visualstudio2008"
+      ini: "vs2008.ini"
+
+python:
+  url: "{{ url_prefix }}/python-2.7.13.msi"
+  installer: "python-2.7.13.msi"
+
+pywin:
+  url: "{{ url_prefix }}/pywin32-218.win32-py2.7.exe"
+  installer: "pywin32-218.win32-py2.7.exe"
