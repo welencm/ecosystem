@@ -1,27 +1,96 @@
 ---
-- name: "download python 2.7.13 x86"
+- name: "download python"
   win_get_url:
-    url: "{{ python.url }}"
+    url: "{{ url_prefix }}/{{ python.installer }}"
     dest: "{{ ansible_user_dir }}\\{{ python.installer }}"
     force: no
 
-- name: "install python 2.7.13 x86"
-  win_shell: "msiexec /a {{ python.installer }} /q"
+- name: "install python"
+  win_msi:
+    path: "{{ ansible_user_dir }}\\{{ python.installer }}"
+    wait: true
+    creates: "{{ python.binary }}"
+
+# - name: "install python"
+#   win_shell: "msiexec /package {{ python.installer }} /q"
+#   args:
+#     creates: "{{ python.binary }}"
 
 - name: "add python to PATH"
   win_path:
-    elements:
-    - "C:\\Python27"
+    elements: "{{ python.paths }}"
 
-- name: "clean python 2.7.13 x86 installer"
+- name: "clean python installer"
   win_file:
-    path: "{{ python.installer }}"
+    path: "{{ ansible_user_dir }}\\{{ python.installer }}"
+    state: absent
+  tags:
+    - cleanup
+
+- name: "download vcredist for python"
+  win_get_url:
+    url: "{{ url_prefix }}/{{ python.vcredist }}"
+    dest: "{{ ansible_user_dir }}\\{{ python.vcredist }}"
+    force: no
+
+- name: "install vcredist"
+  win_shell: "{{ ansible_user_dir }}\\{{ python.vcredist }} /q"
+
+- name: "clean vcredist"
+  win_file:
+    path: "{{ ansible_user_dir }}\\{{ python.vcredist }}"
+    state: absent
+  tags:
+    - cleanup
+
+- name: "download {{ python.pip.script }} script"
+  win_get_url:
+    url: "{{ python.pip.url_prefix }}/{{ python.pip.script }}"
+    dest: "{{ ansible_user_dir }}\\{{ python.pip.script }}"
+    force: no
+
+- name: "install pip"
+  win_shell: "python {{ ansible_user_dir }}\\{{ python.pip.script }}"
+
+- name: "clean {{ python.pip.script }} script"
+  win_file:
+    path: "{{ ansible_user_dir }}\\{{ python.pip.script }}"
     state: absent
   tags:
     - cleanup
 
 - name: "download pywin"
   win_get_url:
-    url: "{{ pywin.url }}"
+    url: "{{ url_prefix }}/{{ pywin.installer }}"
     dest: "{{ ansible_user_dir }}\\{{ pywin.installer }}"
     force: no
+  tags:
+    - pywin
+
+- name: "install pywin"
+  win_command: "easy_install {{ ansible_user_dir }}\\{{ pywin.installer }}"
+
+- name: "clean pywin installer"
+  win_file:
+    path: "{{ ansible_user_dir }}\\{{ pywin.installer }}"
+    state: absent
+  tags:
+    - cleanup
+
+- name: "download scons"
+  win_get_url:
+    url: "{{ url_prefix }}/{{ scons.installer }}"
+    dest: "{{ ansible_user_dir }}\\{{ scons.installer }}"
+    force: no
+  tags:
+    - scons
+
+- name: "install scons"
+  win_command: "easy_install {{ ansible_user_dir }}\\{{ scons.installer }}"
+
+- name: "clean scons installer"
+  win_file:
+    path: "{{ ansible_user_dir }}\\{{ scons.installer }}"
+    state: absent
+  tags:
+    - cleanup

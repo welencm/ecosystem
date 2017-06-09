@@ -1,23 +1,24 @@
 ---
 - name: "install Visual Studio 2005"
-  include: install-visualstudio.yml vs={{ visualstudio.2005 }} version=2005
+  include: visualstudio-2005.yml
   tags:
     - vs2005
     - vs
 
 - name: "install Visual Studio 2008"
-  include: install-visualstudio.yml vs={{ visualstudio.2008 }} version=2008
+  include: visualstudio-2008.yml
   tags:
     - vs2008
     - vs
 
-- name: "install python 2.7.13 x86 and related items"
+- name: "install python, pywin and scons"
   include: python.yml
   tags:
     - python
-    
-- name: "install perl module XML::DOM"
-  win_shell: cpan XML::DOM
+    - pywin
+    - scons
 
-- name: "install perl module XML::Handler::YAWriter"
-  win_shell: cpan XML::Handler::YAWriter
+- name: "install perl and perl modules"
+  include: perl.yml
+  tags:
+    - perl

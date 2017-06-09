@@ -1,0 +1,31 @@
+---
+- name: "download visual studio 2005 iso"
+  win_get_url:
+    url: "{{ url_prefix }}/{{ visualstudio.2005.iso }}"
+    dest: "{{ ansible_user_dir }}\\{{ visualstudio.2005.iso }}"
+    force: no
+
+- name: "extract files from visual studio 2005 iso"
+  win_command: 7z x -aos -o"{{ visualstudio.2005.installer.path }}" "{{ ansible_user_dir }}\\{{ visualstudio.2005.iso }}"
+
+- name: "clean visual studio 2005 iso"
+  win_file:
+    path: "{{ ansible_user_dir }}\\{{ visualstudio.2005.iso }}"
+    state: absent
+  tags:
+    - cleanup
+
+- name: "download visual studio 2005 patches"
+  win_get_url:
+    url: "{{ url_prefix }}/{{ item }}"
+    dest: "{{ ansible_user_dir }}\\{{ item }}"
+    force: no
+  with_items: "{{ visualstudio.2005.patches }}"
+
+# - name: "copy unattended installation script"
+#   win_copy:
+#     src: "{{ visualstudio.2005.installer.ini }}"
+#     dest: "{{ ansible_user_dir }}\\{{ visualstudio.2005.installer.ini }}"
+#
+# - name: "start unattended installation"
+#   win_command: "{{ visualstudio.2005.installer.path }}\\vs\\setup\\setup.exe /unattendfile {{ ansible_user_dir }}\\{{ visualstudio.2005.installer.ini }}"

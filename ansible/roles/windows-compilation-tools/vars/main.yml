@@ -1,28 +1,44 @@
 ---
-url_prefix: http://10.22.11.12/software
+url_prefix: http://10.22.11.12/software/winnt-compilation-tools
 
 visualstudio:
   2005:
-    version: 2005
-    iso:
-      filename: "en_vs_2005_pro_dvd.iso"
-      url: "{{ url_prefix }}/en_vs_2005_pro_dvd.iso"
+    iso: "1_en_vs_2005_pro_dvd.iso"
+    patches:
+      - "2_VS80sp1-KB926601-X86-ENU.exe"
+      - "3_VS80sp1-KB932232-X86-ENU.exe"
+      - "4_vcredist_x86.EXE"
+      - "5_vcredist_x86.exe"
     installer:
-      path: "{{ ansible_user_dir }}\\visualstudio2005"
+      path: "{{ ansible_user_dir }}\\1_visualstudio2005"
       ini: "vs2005.ini"
   2008:
-    version: 2008
-    iso:
-      filename: "en_visual_studio_2008_professional_x86_dvd_x14-26326.iso"
-      url: "{{ url_prefix }}/en_visual_studio_2008_professional_x86_dvd_x14-26326.iso"
+    iso: "en_visual_studio_2008_professional_x86_dvd_x14-26326.iso"
     installer:
       path: "{{ ansible_user_dir }}\\visualstudio2008"
       ini: "vs2008.ini"
 
 python:
-  url: "{{ url_prefix }}/python-2.7.13.msi"
   installer: "python-2.7.13.msi"
+  vcredist: "vs2008-vcredist_x86.exe"
+  pip:
+    url_prefix: "https://bootstrap.pypa.io"
+    script: "get-pip.py"
+  paths:
+    - "C:\\Python27"
+    - "C:\\Python27\\Scripts"
+  binary: "C:\\Python27\\python.exe"
 
 pywin:
-  url: "{{ url_prefix }}/pywin32-218.win32-py2.7.exe"
   installer: "pywin32-218.win32-py2.7.exe"
+
+scons:
+  installer: "scons-2.3.0-setup.exe"
+
+perl:
+  installer: "ActivePerl-5.16.3.1604-MSWin32-x86-298023.msi"
+  path: "C:\\Perl"
+  env:
+    - "C:\\Perl\\bin"
+    - "C:\\Perl\\site\\bin"
+  binary: "C:\\Perl\\bin\\perl.exe"

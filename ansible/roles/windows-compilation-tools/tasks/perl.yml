@@ -1,0 +1,38 @@
+---
+- name: "download ActivePerl installer"
+  win_get_url:
+    url: "{{ url_prefix }}/{{ perl.installer }}"
+    dest: "{{ ansible_user_dir }}/{{ perl.installer }}"
+    force: no
+
+- name: "install ActivePerl"
+  win_command: "msiexec /package {{ ansible_user_dir }}\\{{ perl.installer }} /quiet"
+  args:
+    creates: "{{ perl.binary }}"
+
+- name: "add ActivePerl to PATH"
+  win_path:
+    elements: "{{ perl.env }}"
+
+- name: "mark extension .pl as PerlScript"
+  win_shell: "assoc .pl=PerlScript"
+  args:
+    executable: cmd
+
+- name: "associate PerlScript with ActivePerl"
+  win_shell: "ftype PerlScript={{ perl.binary }} \"%1\" %*"
+  args:
+    executable: cmd
+
+- name: "clean ActivePerl installer"
+  win_file:
+    path: "{{ ansible_user_dir }}/{{ perl.installer }}"
+    state: absent
+  tags:
+    - cleanup
+
+- name: "install perl module XML::DOM"
+  win_shell: cpan XML::DOM
+
+- name: "install perl module XML::Handler::YAWriter"
+  win_shell: cpan XML::Handler::YAWriter

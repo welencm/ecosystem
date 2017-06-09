@@ -1,0 +1,17 @@
+---
+- name: "download visual studio 2008 iso"
+  win_get_url:
+    url: "{{ url_prefix }}/{{ visualstudio.2008.iso }}"
+    dest: "{{ ansible_user_dir }}\\{{ visualstudio.2008.iso }}"
+    force: no
+
+- name: "extract files from visual studio 2008 iso"
+  win_command: 7z x -aos -o"{{ visualstudio.2008.installer.path }}" "{{ ansible_user_dir }}\\{{ visualstudio.2008.iso }}"
+
+- name: "copy unattended installation script"
+  win_copy:
+    src: "{{ visualstudio.2008.installer.ini }}"
+    dest: "{{ ansible_user_dir }}\\{{ visualstudio.2008.installer.ini }}"
+
+- name: "unattended installation"
+  win_command: "{{ visualstudio.2008.installer.path }}\\setup\\setup.exe /unattendfile {{ ansible_user_dir }}\\{{ visualstudio.2008.installer.ini }}"

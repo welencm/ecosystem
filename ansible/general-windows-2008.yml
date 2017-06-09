@@ -1,5 +1,5 @@
 ---
 - hosts: general-windows-2008
   roles:
-    # - windows-common
+    - windows-common
     - windows-compilation-tools

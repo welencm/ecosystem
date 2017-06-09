@@ -13,6 +13,12 @@
     name: git
     state: present
 
+- name: "disable git ssl verification"
+  win_command: "git config --global http.sslVerify false"
+
+- name: "enable longpaths for git"
+  win_command: "git config --system core.longpaths true"
+
 - name: "install Notepad++"
   win_chocolatey:
     name: notepadplusplus
@@ -23,20 +29,26 @@
     name: 7zip
     state: present
 
+- name: "install JDK8"
+  win_chocolatey:
+    name: jdk8
+    state: present
+
+- name: "install sysinternals"
+  win_chocolatey:
+    name: sysinternals
+    state: present
+    ignore_checksums: true
+
 # - name: "install python2"
 #   win_chocolatey:
 #     name: python2
 #     state: present
 
-- name: "install ActivePerl"
-  win_chocolatey:
-    name: activeperl
-    state: present
-
-- name: "install JDK8"
-  win_chocolatey:
-    name: jdk8
-    state: present
+# - name: "install ActivePerl"
+#   win_chocolatey:
+#     name: activeperl
+#     state: present
 
 # - name: "install pscx"
 #   win_chocolatey:
