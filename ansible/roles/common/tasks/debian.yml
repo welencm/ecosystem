@@ -9,4 +9,5 @@
     - ssh
     - tmux
     - ncdu
+    - htop
   become: true

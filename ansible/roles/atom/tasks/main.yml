@@ -1,0 +1,44 @@
+---
+- name: "download"
+  get_url:
+    url: "https://atom.io/download/deb"
+    dest: "{{ ansible_user_dir }}"
+    force: no
+
+- name: "install"
+  apt:
+    deb: "{{ ansible_user_dir }}/atom-amd64.deb"
+  become: yes
+
+- name: "remove installation package"
+  file:
+    path: "{{ ansible_user_dir }}/atom-amd64.deb"
+    state: absent
+
+- name: "workaround atom xrdp error https://github.com/atom/atom/issues/4360"
+  shell: "sed -i 's/BIG-REQUESTS/_IG-REQUESTS/' /usr/lib/x86_64-linux-gnu/libxcb.so.1"
+  become: yes
+
+- name: "install shellcheck"
+  package:
+    name: "shellcheck"
+    state: present
+    update_cache: yes
+  become: yes
+
+- name: "install useful packages"
+  shell: "apm install {{ item }}"
+  with_items:
+    - "highlight-selected"
+    - "language-docker"
+    - "language-groovy"
+    - "linter"
+    - "linter-ui-default"
+    - "intentions"
+    - "busy-signal"
+    - "linter-js-yaml"
+    - "linter-python"
+    - "linter-shellcheck"
+    - "minimap"
+    - "minimap-highlight-selected"
+    - "open-recent"
