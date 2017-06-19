@@ -7,7 +7,7 @@ Vagrant.configure("2") do |config|
   # virtualbox settings
   config.vm.provider "virtualbox" do |vb|
       vb.name = "windows-2008"
-      vb.memory = 512
+      vb.memory = 4096
       vb.cpus = 1
       vb.gui = true
 

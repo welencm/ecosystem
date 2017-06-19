@@ -3,6 +3,17 @@
   "description": "Base box with Windows 2012r2",
   "versions": [
     {
+      "version": "0.1.2",
+      "providers": [
+        {
+          "name": "virtualbox",
+          "url": "http://localhost/vagrant/windows-2012r2_0.1.2.box",
+          "checksum_type": "sha1",
+          "checksum": "d8d3d571bb2d23cb21b3920d5acb44ba4e424e39"
+        }
+      ]
+    },
+    {
       "version": "0.1.1",
       "providers": [
         {

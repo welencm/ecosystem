@@ -3,6 +3,17 @@
   "description": "Base box with Windows 2008r2 sp1",
   "versions": [
     {
+      "version": "0.2.2",
+      "providers": [
+        {
+          "name": "virtualbox",
+          "url": "http://localhost/vagrant/windows-2008r2_0.2.2.box",
+          "checksum_type": "sha1",
+          "checksum": "83832b03955e0bc9ed093d20f3160388f386e3df"
+        }
+      ]
+    },
+    {
       "version": "0.2.1",
       "providers": [
         {
