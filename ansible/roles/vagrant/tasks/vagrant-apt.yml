@@ -1,0 +1,6 @@
+---
+- name: "install"
+  apt:
+    name: "vagrant"
+    state: present
+  become: true

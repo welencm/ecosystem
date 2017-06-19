@@ -1,0 +1,10 @@
+---
+- name: "install"
+  apt:
+    name: "{{ item }}"
+    state: present
+  become: true
+  with_items:
+    - "virtualbox"
+    - "virtualbox-dkms"
+    - "virtualbox-ext-pack"
