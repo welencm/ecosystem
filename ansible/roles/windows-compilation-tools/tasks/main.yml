@@ -2,14 +2,20 @@
 - name: "install Visual Studio 2005"
   include: visualstudio-2005.yml
   tags:
-    - vs2005
     - vs
+    - vs2005
 
 - name: "install Visual Studio 2008"
   include: visualstudio-2008.yml
   tags:
-    - vs2008
     - vs
+    - vs2008
+
+- name: "install Visual Studio 2012"
+  include: visualstudio-2012.yml
+  tags:
+    - vs
+    - vs2012
 
 - name: "install python, pywin and scons"
   include: python.yml
@@ -22,3 +28,6 @@
   include: perl.yml
   tags:
     - perl
+
+- name: "reboot"
+  win_reboot:

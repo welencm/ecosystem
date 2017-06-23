@@ -11,11 +11,6 @@
     wait: true
     creates: "{{ python.binary }}"
 
-# - name: "install python"
-#   win_shell: "msiexec /package {{ python.installer }} /q"
-#   args:
-#     creates: "{{ python.binary }}"
-
 - name: "add python to PATH"
   win_path:
     elements: "{{ python.paths }}"

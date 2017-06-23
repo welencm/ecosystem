@@ -29,6 +29,7 @@
       host: 3089
   script: provision.sh
   ansible: desktop-ubuntu.yml
+  gui: true
 
 - name: general-ubuntu
   box: ubuntu/xenial64

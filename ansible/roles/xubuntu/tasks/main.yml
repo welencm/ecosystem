@@ -1,0 +1,7 @@
+---
+- name: "install xubuntu"
+  apt:
+    name: xubuntu-core
+    state: present
+    update_cache: yes
+  become: true

@@ -17,6 +17,11 @@ visualstudio:
     installer:
       path: "{{ ansible_user_dir }}\\visualstudio2008"
       ini: "vs2008.ini"
+  2012:
+    iso: "en_visual_studio_professional_2012_x86_dvd_2262334.iso"
+    installer:
+      path: "{{ ansible_user_dir }}\\visualstudio2012"
+      ini: "vs2012.xml"
 
 python:
   installer: "python-2.7.13.msi"

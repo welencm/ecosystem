@@ -40,6 +40,9 @@
     state: present
     ignore_checksums: true
 
+- name: "reboot"
+  win_reboot:
+
 # - name: "install python2"
 #   win_chocolatey:
 #     name: python2

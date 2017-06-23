@@ -1,21 +1,21 @@
 ---
-- name: "download visual studio 2005 iso"
+- name: "visual studio 2005 : download iso"
   win_get_url:
     url: "{{ url_prefix }}/{{ visualstudio.2005.iso }}"
     dest: "{{ ansible_user_dir }}\\{{ visualstudio.2005.iso }}"
     force: no
 
-- name: "extract files from visual studio 2005 iso"
+- name: "visual studio 2005 : extract files from iso"
   win_command: 7z x -aos -o"{{ visualstudio.2005.installer.path }}" "{{ ansible_user_dir }}\\{{ visualstudio.2005.iso }}"
 
-- name: "clean visual studio 2005 iso"
+- name: "visual studio 2005 : clean iso"
   win_file:
     path: "{{ ansible_user_dir }}\\{{ visualstudio.2005.iso }}"
     state: absent
   tags:
     - cleanup
 
-- name: "download visual studio 2005 patches"
+- name: "visual studio 2005 : download patches"
   win_get_url:
     url: "{{ url_prefix }}/{{ item }}"
     dest: "{{ ansible_user_dir }}\\{{ item }}"
@@ -29,3 +29,7 @@
 #
 # - name: "start unattended installation"
 #   win_command: "{{ visualstudio.2005.installer.path }}\\vs\\setup\\setup.exe /unattendfile {{ ansible_user_dir }}\\{{ visualstudio.2005.installer.ini }}"
+
+- name: "visual studio 2005 : manual installation"
+  pause:
+    prompt: "Please install visual studio 2005 manually and then continue. Installation files are located in {{ ansible_user_dir }}"
