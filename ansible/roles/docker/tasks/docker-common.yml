@@ -1,0 +1,19 @@
+---
+- name: "create docker group"
+  group:
+    name: docker
+    state: present
+  become: true
+
+- name: "add user to docker group"
+  user:
+    name: "{{ ansible_user_id }}"
+    groups: docker
+    append: yes
+  become: true
+
+- name: "install docker-compose"
+  pip:
+    name: docker-compose
+    state: present
+  become: true

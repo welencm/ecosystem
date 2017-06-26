@@ -1,0 +1,18 @@
+---
+- name: "download jdk rpm"
+  get_url:
+    url: "{{ jdk_url_prefix }}{{ jdk_version }}/{{ jdk_url_hash }}/{{ jdk_rpm }}"
+    headers: 'Cookie:oraclelicense=accept-securebackup-cookie'
+    dest: "{{ ansible_user_dir}}/{{ jdk_rpm }}"
+    force: no
+
+- name: "install jdk"
+  yum:
+    name: "{{ jdk_rpm }}"
+    state: present
+  become: true
+
+- name: "remove jdk rpm"
+  file:
+    path: "jdk-8u131-linux-x64.rpm"
+    state: absent

@@ -1,0 +1,41 @@
+---
+- name: "make sure old docker packages are removed"
+  yum:
+    name: "{{ item }}"
+    state: absent
+  with_items:
+    - docker
+    - docker-common
+    - container-selinux
+    - docker-selinux
+    - docker-engine
+    - docker-engine-selinux
+  become: true
+
+- name: "install recommended packages"
+  yum:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  with_items:
+    - yum-utils
+    - device-mapper-persistent-data
+    - lvm2
+  become: true
+
+- name: "add docker-ce repository"
+  yum_repository:
+    name: "docker-ce-stable"
+    description: "Docker CE Stable"
+    baseurl: "https://download.docker.com/linux/centos/7/$basearch/stable"
+    enabled: yes
+    gpgcheck: yes
+    gpgkey: "https://download.docker.com/linux/centos/gpg"
+  become: true
+
+- name: "install docker"
+  yum:
+    name: "docker-ce"
+    state: present
+    update_cache: yes
+  become: true

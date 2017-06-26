@@ -1,0 +1,4 @@
+---
+virtualbox_url: "http://download.virtualbox.org/virtualbox/"
+virtualbox:  
+  version: "5.0.40"

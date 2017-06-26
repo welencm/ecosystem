@@ -3,6 +3,6 @@
   roles:
     - common
     - xubuntu
-    # - firefox
-    # - chrome
-    # - atom
+    - firefox
+    - chrome
+    - atom
