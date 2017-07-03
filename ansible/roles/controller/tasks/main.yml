@@ -1,4 +1,25 @@
 ---
+- name: "ensure .ssh directory exists"
+  file:
+    dest: "{{ key_file | dirname }}"
+    mode: 0700
+    owner: "{{ ansible_user }}"
+    state: directory
+
+- name: "install ssh private key"
+  copy:
+    content: "{{ ssh_key }}"
+    dest: "{{ key_file }}"
+    mode: 0600
+    owner: "{{ ansible_user }}"
+
+- name: "install ssh public key"
+  copy:
+    src: "id_rsa.pub"
+    dest: "{{ pub_key_file }}"
+    mode: 0600
+    owner: "{{ ansible_user }}"
+
 - name: "pip : install pywinrm"
   pip:
     name: pywinrm

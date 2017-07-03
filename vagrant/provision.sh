@@ -22,10 +22,13 @@ sudo tee -a /etc/hosts > /dev/null <<EOL
 10.0.0.61 general-windows-2008
 EOL
 
+echo "[INFO] Authorize ssh keys"
+mkdir -p ${HOME}/.ssh
+cat /vagrant/id_rsa.pub >> ${HOME}/.ssh/authorized_keys
+
 echo "[INFO] Generate SSH key"
 if [ ! -f ${HOME}/.ssh/id_rsa.pub ]; then
     sudo -u ${USER} ssh-keygen -t rsa -b 2048 -f ${HOME}/.ssh/id_rsa -q -N ""
-    cat ${HOME}/.ssh/id_rsa.pub >> ${HOME}/.ssh/authorized_keys
 fi
 
 if [[ "${USER}" == "ubuntu" ]]; then
