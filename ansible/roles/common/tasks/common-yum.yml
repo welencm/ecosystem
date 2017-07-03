@@ -1,5 +1,5 @@
 ---
-- name: "Install RedHat useful packages"
+- name: "install useful packages"
   yum:
     name: "{{ item }}"
     state: present
@@ -8,6 +8,9 @@
     - openssh
     - openssh-clients
     - openssh-server
+    - ncdu
+    - tmux
+    - htop
   become: true
 
 - name: "Disable selinux"

@@ -1,4 +1,4 @@
 ---
-- hosts: controller
+- hosts: localhost
   roles:
     - controller

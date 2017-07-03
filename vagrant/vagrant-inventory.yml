@@ -11,7 +11,6 @@
       guest: 22
       host: 2022
   script: provision.sh
-  ansible: controller.yml
 
 - name: desktop-ubuntu
   box: ubuntu/xenial64
@@ -36,14 +35,27 @@
   check_updates: false
   net: private_network
   ip: 10.0.0.31
-  mem: 4096
-  cpus: 2
+  mem: 1024
+  cpus: 1
   ports:
     - id: ssh
       guest: 22
       host: 3122
   script: provision.sh
   ansible: general-ubuntu.yml
+
+- name: general-centos
+  box: centos/7
+  check_updates: false
+  net: private_network
+  ip: 10.0.0.32
+  mem: 1024
+  cpus: 1
+  ports:
+    - id: ssh
+      guest: 22
+      host: 3222
+  script: provision.sh
 
 - name: general-windows-2012
   box: windows/2012r2

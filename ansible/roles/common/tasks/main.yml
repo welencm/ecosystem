@@ -9,10 +9,8 @@
     - git
   become: true
 
-- include: debian.yml
-  when:
-    - ansible_os_family == "Debian"
+- include: common-apt.yml
+  when: ansible_pkg_mgr == 'apt'
 
-- include: redhat.yml
-  when:
-    - ansible_os_family == "RedHat"
+- include: common-yum.yml
+  when: ansible_pkg_mgr == 'yum'

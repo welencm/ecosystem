@@ -1,0 +1,10 @@
+---
+java:
+  major: 8
+  minor: 131
+  build: 11
+
+jdk_url_prefix: "http://download.oracle.com/otn-pub/java/jdk/"
+jdk_url_hash: "d54c1d3a095b4ff2b6607d096fa80163"
+jdk_version: "{{ java.major }}u{{ java.minor }}-b{{ java.build }}"
+jdk_rpm: "jdk-{{ java.major }}u{{ java.minor }}-linux-x64.rpm"
