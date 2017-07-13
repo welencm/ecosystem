@@ -18,6 +18,7 @@ sudo tee -a /etc/hosts > /dev/null <<EOL
 10.0.0.30 desktop-ubuntu
 10.0.0.31 general-ubuntu
 10.0.0.32 general-centos
+10.0.0.33 desktop-centos
 10.0.0.60 general-windows-2012
 10.0.0.61 general-windows-2008
 EOL
@@ -27,8 +28,9 @@ mkdir -p ${HOME}/.ssh
 cat /vagrant/id_rsa.pub >> ${HOME}/.ssh/authorized_keys
 
 echo "[INFO] Generate SSH key"
-if [ ! -f ${HOME}/.ssh/id_rsa.pub ]; then
+if [ ! -f ${HOME}/.ssh/id_rsa ]; then
     sudo -u ${USER} ssh-keygen -t rsa -b 2048 -f ${HOME}/.ssh/id_rsa -q -N ""
+    cat ${HOME}/.ssh/id_rsa.pub >> ${HOME}/.ssh/authorized_keys
 fi
 
 if [[ "${USER}" == "ubuntu" ]]; then

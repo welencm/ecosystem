@@ -1,5 +1,5 @@
 ---
-- name: "install useful packages"
+- name: "install common packages"
   package:
     name: "{{ item }}"
     state: present
@@ -14,3 +14,8 @@
 
 - include: common-yum.yml
   when: ansible_pkg_mgr == 'yum'
+
+- name: "provide .vimrc"
+  copy:
+    src: ".vimrc"
+    dest: "{{ ansible_user_dir }}"

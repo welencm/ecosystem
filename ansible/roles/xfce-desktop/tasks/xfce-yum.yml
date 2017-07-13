@@ -1,0 +1,90 @@
+---
+- name: "install x window system"
+  yum:
+    name: "@X Window System"
+    state: present
+    update_cache: yes
+  become: true
+
+- name: "install xfce desktop"
+  yum:
+    name: "@xfce"
+    state: present
+  become: true
+
+- name: "set graphical.target"
+  shell: "systemctl set-default graphical.target"
+  become: true
+  tags:
+    - gui
+
+- name: "install xrdp"
+  yum:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - xrdp
+    - tigervnc-server
+  become: true
+
+- name: "make sure xrdp service is running"
+  systemd:
+    name: xrdp
+    state: started
+  become: true
+
+# - name: "download virtualbox guest additions iso"
+#   get_url:
+#     url: "{{ virtualbox_url }}/{{ virtualbox.version }}/VBoxGuestAdditions_{{ virtualbox.version }}.iso"
+#     dest: "{{ ansible_user_dir }}"
+#     force: no
+#   tags:
+#     - gui
+#
+# - name: "create iso mountpoint"
+#   file:
+#     path: "/mnt/iso"
+#     state: directory
+#   become: true
+#   tags:
+#     - gui
+#
+# - name: "mount virtualbox guest additions iso"
+#   mount:
+#     path: "/mnt/iso"
+#     src: "{{ ansible_user_dir }}/VBoxGuestAdditions_{{ virtualbox.version }}.iso"
+#     fstype: iso9660
+#     opts: ro
+#     state: mounted
+#   become: true
+#   tags:
+#     - gui
+#
+# - name: "install vbox guest additions"
+#   shell: "/mnt/iso/VBoxLinuxAdditions.run"
+#   become: true
+#   tags:
+#     - gui
+#
+# - name: "unmount virtualbox guest additions iso"
+#   mount:
+#     path: "/mnt/iso"
+#     state: unmounted
+#   become: true
+#   tags:
+#     - gui
+#
+# - name: "remove iso"
+#   file:
+#     path: "{{ ansible_user_dir }}/VBoxGuestAdditions_{{ virtualbox.version }}.iso"
+#     state: absent
+#   tags:
+#     - gui
+
+# - name: "Enable xrdp in firewall"
+#   firewalld:
+#     port: 3389/tcp
+#     permanent: true
+#     state: enabled
+#     zone: public
+#   become: true

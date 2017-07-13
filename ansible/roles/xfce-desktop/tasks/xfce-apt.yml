@@ -1,0 +1,25 @@
+---
+- name: "install xubuntu"
+  apt:
+    name: xubuntu-core
+    state: present
+    update_cache: yes
+  become: true
+
+- name: "install virtualbox guest additions"
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - virtualbox-guest-utils
+    - virtualbox-guest-dkms
+    - virtualbox-guest-x11
+  become: true
+  tags:
+    - gui
+
+- name: "install xrdp"
+  apt:
+    name: xrdp
+    state: present
+  become: true

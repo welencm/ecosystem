@@ -8,6 +8,11 @@
     - openssh
     - openssh-clients
     - openssh-server
+    - redhat-lsb-core
+    - net-tools
+    - epel-release
+    - kernel-headers
+    - kernel-devel
     - ncdu
     - tmux
     - htop

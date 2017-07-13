@@ -3,4 +3,4 @@
   roles:
     - common
     - xfce-desktop
-    - firefox
+    # - firefox

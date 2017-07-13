@@ -57,6 +57,21 @@
       host: 3222
   script: provision.sh
 
+# vagrant plugin install vagrant-vbguest
+- name: desktop-centos
+  box: centos/7
+  check_updates: false
+  net: private_network
+  ip: 10.0.0.33
+  mem: 1024
+  cpus: 1
+  ports:
+    - id: ssh
+      guest: 22
+      host: 3322
+  script: provision.sh
+  gui: true
+
 - name: general-windows-2012
   box: windows/2012r2
   check_updates: false
@@ -82,21 +97,3 @@
       guest: 3389
       host: 6189
   gui: true
-
-# # vagrant plugin install vagrant-vbguest
-# - name: desktop-centos
-#   box: centos/7
-#   check_updates: true
-#   net: private_network
-#   ip: 10.0.0.12
-#   mem: 4096
-#   cpus: 2
-#   ports:
-#     - id: ssh
-#       guest: 22
-#       host: 5522
-#     - id: rdp
-#       guest: 3389
-#       host: 5589
-#   script: provision.sh
-#   ansible: desktop-centos.yml

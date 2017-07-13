@@ -2,7 +2,7 @@
 - hosts: desktop-ubuntu
   roles:
     - common
-    - xubuntu
+    - xfce-desktop
     - firefox
     - chrome
     - atom

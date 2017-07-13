@@ -1,10 +1,8 @@
 ---
-- include: debian.yml
-  when:
-    - ansible_os_family == "Debian"
+- include: xfce-apt.yml
+  when: ansible_pkg_mgr == 'apt'
 
-- include: redhat.yml
-  when:
-    - ansible_os_family == "RedHat"
+- include: xfce-yum.yml
+  when: ansible_pkg_mgr == 'yum'
 
 - include: customize.yml
