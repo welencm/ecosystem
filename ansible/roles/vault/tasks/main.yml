@@ -1,0 +1,17 @@
+---
+- name: "download"
+  get_url:
+    url: https://releases.hashicorp.com/vault/0.7.3/vault_0.7.3_linux_amd64.zip
+    dest: "{{ ansible_user_dir }}/vault_0.7.3_linux_amd64.zip"
+
+- name: "unzip"
+  unarchive:
+    src: "{{ ansible_user_dir }}/vault_0.7.3_linux_amd64.zip"
+    dest: "/usr/bin"
+    remote_src: true
+  become: true
+
+- name: "cleanup archive"
+  file:
+    path: "{{ ansible_user_dir }}/vault_0.7.3_linux_amd64.zip"
+    state: absent
