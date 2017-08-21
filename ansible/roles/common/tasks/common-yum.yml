@@ -13,9 +13,6 @@
     - epel-release
     - kernel-headers
     - kernel-devel
-    - ncdu
-    - tmux
-    - htop
   become: true
 
 - name: "Disable selinux"

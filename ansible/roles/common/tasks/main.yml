@@ -7,6 +7,14 @@
   with_items:
     - vim
     - git
+    - zip
+    - unzip
+    - tar
+    - wget
+    - htop
+    - tmux
+    - ncdu
+    - htop
   become: true
 
 - include: common-apt.yml
@@ -19,3 +27,10 @@
   copy:
     src: ".vimrc"
     dest: "{{ ansible_user_dir }}"
+
+- name: "update /etc/hosts file"
+  blockinfile:
+    block: "{{ lookup('file', 'templates/hosts') }}"
+    dest: "/etc/hosts"
+    backup: yes
+  become: true

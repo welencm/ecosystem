@@ -7,8 +7,4 @@
   with_items:
     - unattended-upgrades
     - ssh
-    - tmux
-    - ncdu
-    - htop
-    - unzip
   become: true

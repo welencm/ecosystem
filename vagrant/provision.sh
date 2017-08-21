@@ -12,17 +12,6 @@ else
   sudo apt-get install -y ansible
 fi
 
-echo "[INFO] Configure hosts file"
-sudo tee -a /etc/hosts > /dev/null <<EOL
-10.0.0.20 controller
-10.0.0.30 desktop-ubuntu
-10.0.0.31 general-ubuntu
-10.0.0.32 general-centos
-10.0.0.33 desktop-centos
-10.0.0.60 general-windows-2012
-10.0.0.61 general-windows-2008
-EOL
-
 echo "[INFO] Authorize ssh keys"
 mkdir -p ${HOME}/.ssh
 cat /vagrant/id_rsa.pub >> ${HOME}/.ssh/authorized_keys
