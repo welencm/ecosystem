@@ -1,0 +1,11 @@
+---
+groovy_version: "2.4.12"
+
+groovy_base: "/opt/groovy"
+groovy_home: "/opt/groovy/latest"
+groovy_dir: "/opt/groovy/groovy-{{ groovy_version }}"
+
+groovy_url: "https://bintray.com/artifact/download/groovy/maven/apache-groovy-binary-{{ groovy_version }}.zip"
+
+groovy_owner: root
+groovy_group: "{{ groovy_owner }}"

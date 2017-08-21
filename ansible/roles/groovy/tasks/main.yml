@@ -1,0 +1,32 @@
+---
+- name: "create base directory"
+  file:
+    path: "{{ groovy_base }}"
+    state: directory
+    owner: "{{ groovy_owner }}"
+    group: "{{ groovy_group }}"
+  become: true
+
+- name: "download and unzip"
+  unarchive:
+    src: "{{ groovy_url }}"
+    creates: "{{ groovy_dir }}"
+    dest: "{{ groovy_base }}"
+    validate_certs: yes
+    remote_src: yes
+  become: true
+
+- name: "create link to current version"
+  file:
+    path: "{{ groovy_home }}"
+    src: "{{ groovy_dir }}"
+    state: link
+    owner: "{{ groovy_owner }}"
+    group: "{{ groovy_group }}"
+  become: true
+
+- name: "set environmental variables"
+  template:
+    src: groovy.sh.j2
+    dest: "/etc/profile.d/groovy.sh"
+  become: true
