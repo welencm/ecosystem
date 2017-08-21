@@ -16,3 +16,9 @@
   file:
     path: "jdk-8u131-linux-x64.rpm"
     state: absent
+
+- name: "install maven"
+  yum:
+    name: maven
+    state: present
+  become: true

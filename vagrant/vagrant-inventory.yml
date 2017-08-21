@@ -1,3 +1,7 @@
+# ecosystem vagrant inventory
+#
+# for centos vm's run following command:
+#  vagrant plugin install vagrant-vbguest
 ---
 - name: controller
   box: ubuntu/xenial64
@@ -29,6 +33,7 @@
   script: provision.sh
   ansible: desktop-ubuntu.yml
   gui: true
+  workspace: "/home/miwelenc/workspace"
 
 - name: general-ubuntu
   box: ubuntu/xenial64
@@ -43,6 +48,7 @@
       host: 3122
   script: provision.sh
   ansible: general-ubuntu.yml
+  workspace: "/home/miwelenc/workspace"
 
 - name: general-centos
   box: centos/7
@@ -57,7 +63,6 @@
       host: 3222
   script: provision.sh
 
-# vagrant plugin install vagrant-vbguest
 - name: desktop-centos
   box: centos/7
   check_updates: false
@@ -71,6 +76,20 @@
       host: 3322
   script: provision.sh
   gui: true
+
+- name: jenkins-centos
+  box: centos/7
+  check_updates: false
+  net: private_network
+  ip: 10.0.0.40
+  mem: 2048
+  cpus: 2
+  ports:
+    - id: ssh
+      guest: 22
+      host: 4022
+  script: provision.sh
+  ansible: jenkins-centos.yml
 
 - name: general-windows-2012
   box: windows/2012r2
