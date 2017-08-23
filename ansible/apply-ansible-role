@@ -1,0 +1,40 @@
+#!/bin/bash -e
+
+# Script for applying ansible role to single host
+
+if [[ $1 == "-h" || $1 == "--help" ]]; then
+  echo "$(basename $0) - script for applying ansible role to single host"
+  echo "Usage:"
+  echo "  $(basename $0) ROLE HOST"
+  exit 0
+fi
+
+# variables
+ROLE=$1
+HOST=$2
+PLAYBOOK="playbook-${ROLE}-${HOST}.yml"
+
+# check input
+if [[ ! -d "roles/${ROLE}" ]]; then
+  echo "Role ${ROLE} doesn't exists"
+  echo "Aborting"
+  exit 1
+fi
+
+if [[ $(grep "${HOST}" inventory | wc -l) == 0 ]]; then
+  echo "Host ${HOST} not found in the inventory"
+  echo "Aborting"
+  exit 1
+fi
+
+rm -rf "${PLAYBOOK}"
+
+cat <<EOT >> ${PLAYBOOK}
+---
+- hosts: ${HOST}
+  roles:
+    - ${ROLE}
+EOT
+
+ansible-playbook "${PLAYBOOK}"
+rm -rf "${PLAYBOOK}"
