@@ -1,0 +1,46 @@
+#!/bin/bash
+
+ROLE=$1
+
+# check input
+if [[ ! -d "roles/${ROLE}" ]]; then
+  echo "Role ${ROLE} doesn't exists"
+  echo "Aborting"
+  exit 1
+fi
+
+PLAYBOOK=test.yml
+cat <<EOT >> ${PLAYBOOK}
+---
+- hosts: localhost
+  roles:
+    - ${ROLE}
+EOT
+
+# start container
+CONTAINER_ID=$(docker run --detach --volume "${PWD}:/ansible:ro" art-ubuntu-xenial:latest /lib/systemd/systemd)
+echo ${CONTAINER_ID}
+
+# check syntax
+docker exec ${CONTAINER_ID} ansible-playbook -i /ansible/inventory-test /ansible/${PLAYBOOK} --syntax-check
+SYNTAX_CHECK_RESULT=$?
+
+# first run test
+docker exec ${CONTAINER_ID} ansible-playbook -i /ansible/inventory-test /ansible/${PLAYBOOK}
+FIRST_RUN_RESULT=$?
+
+# stop and destroy container
+docker stop ${CONTAINER_ID}
+docker rm -v ${CONTAINER_ID}
+rm ${PLAYBOOK}
+
+cat <<EOT
+
+*---------------------------------*
+| TEST RESULTS                    |
+*---------------------------------*
+| Syntax check test   -   $(if [[ ${SYNTAX_CHECK_RESULT} == 0 ]]; then echo SUCCESS; else echo FAILURE; fi) |
+| First run test      -   $(if [[ ${FIRST_RUN_RESULT} == 0 ]]; then echo SUCCESS; else echo FAILURE; fi) |
+| Idempotence test    -   FAILURE |
+*---------------------------------*
+EOT
