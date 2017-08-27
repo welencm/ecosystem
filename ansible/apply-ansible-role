@@ -2,11 +2,20 @@
 
 # Script for applying ansible role to single host
 
-if [[ $1 == "-h" || $1 == "--help" ]]; then
+function display_help {
   echo "$(basename $0) - script for applying ansible role to single host"
   echo "Usage:"
   echo "  $(basename $0) ROLE HOST"
+}
+
+if [[ $1 == "-h" || $1 == "--help" ]]; then
+  display_help
   exit 0
+fi
+
+if [[ $# -lt 2 ]]; then
+  display_help
+  exit 1
 fi
 
 # variables
