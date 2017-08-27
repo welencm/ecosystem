@@ -1,3 +1,6 @@
+# Ansible role for setting up controller node
+# install vault protected ssh keys
+# use with --ask-vault-pass option
 ---
 - hosts: localhost
   roles:

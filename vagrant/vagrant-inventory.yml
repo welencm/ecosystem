@@ -33,7 +33,7 @@
   script: provision.sh
   ansible: desktop-ubuntu.yml
   gui: true
-  workspace: "/home/miwelenc/workspace"
+  workspace: "../.."
 
 - name: general-ubuntu
   box: ubuntu/xenial64
@@ -48,7 +48,6 @@
       host: 3122
   script: provision.sh
   ansible: general-ubuntu.yml
-  workspace: "/home/miwelenc/workspace"
 
 - name: general-centos
   box: centos/7

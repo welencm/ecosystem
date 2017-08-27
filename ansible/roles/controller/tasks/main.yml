@@ -20,6 +20,13 @@
     mode: 0600
     owner: "{{ ansible_user }}"
 
+- name: "git user setup"
+  copy:
+    src: ".gitconfig"
+    dest: "{{ ansible_user_dir }}/.gitconfig"
+    mode: 0660
+    owner: "{{ ansible_user }}"
+
 - name: "pip : install pywinrm"
   pip:
     name: pywinrm
