@@ -1,5 +1,5 @@
 ---
-- name: "install useful packages"
+- name: "install useful debian-specific packages"
   apt:
     name: "{{ item }}"
     state: present

@@ -39,3 +39,9 @@
     state: present
     update_cache: yes
   become: true
+
+- name: "start service"
+  service:
+    name: docker
+    state: started
+  become: true

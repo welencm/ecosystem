@@ -2,6 +2,7 @@
 ecosystem-desktop
 ecosystem-other
 ecosystem-general
+ecosystem-jenkins
 
 [ecosystem-general]
 general-ubuntu  ansible_user=ubuntu
@@ -10,6 +11,9 @@ general-centos  ansible_user=vagrant
 [ecosystem-desktop]
 desktop-ubuntu  ansible_user=ubuntu
 desktop-centos  ansible_user=vagrant
+
+[ecosystem-jenkins]
+jenkins-centos  ansible_user=vagrant
 
 [ecosystem-other]
 controller      ansible_user=ubuntu

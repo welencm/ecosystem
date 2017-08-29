@@ -30,7 +30,7 @@
 
 - name: "update /etc/hosts file"
   blockinfile:
-    block: "{{ lookup('file', 'templates/hosts') }}"
+    block: "{{ lookup('file', 'hosts') }}"
     dest: "/etc/hosts"
     backup: yes
   become: true

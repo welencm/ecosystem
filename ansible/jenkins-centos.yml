@@ -1,4 +1,5 @@
 ---
-- hosts: general-centos
+- hosts: jenkins-centos
   roles:
     - common
+    - docker
