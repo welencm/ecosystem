@@ -3,3 +3,20 @@
   roles:
     - common
     - docker
+  tasks:
+    - name: "create jenkins folder"
+      file:
+        path: "{{ ansible_user_dir}}/jenkins"
+        state: directory
+# TODO pull image before starting
+# TODO parametrize version
+    - name: "start jenkins container"
+      docker_container:
+        name: jenkins
+        image: jenkins:2.60.2
+        state: started
+        ports:
+          - "80:8080"
+          - "50000:50000"
+        volumes:
+          - "{{ ansible_user_dir}}/jenkins:/var/jenkins_home"
