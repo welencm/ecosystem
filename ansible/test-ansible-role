@@ -1,5 +1,6 @@
 #!/bin/bash
 
+IMAGES="art-ubuntu-1604 art-centos-7"
 ROLE=$1
 
 # check input
@@ -10,37 +11,63 @@ if [[ ! -d "roles/${ROLE}" ]]; then
 fi
 
 PLAYBOOK=test.yml
-cat <<EOT >> ${PLAYBOOK}
+cat <<EOT > ${PLAYBOOK}
 ---
 - hosts: localhost
   roles:
     - ${ROLE}
 EOT
 
-# start container
-CONTAINER_ID=$(docker run --detach --volume "${PWD}:/ansible:ro" art-ubuntu-xenial:latest /lib/systemd/systemd)
-echo ${CONTAINER_ID}
+declare -A SYNTAX_CHECK_RESULT FIRST_RUN_RESULT IDEMPOTENCE_RESULT FUNCT_RESULT
 
-# check syntax
-docker exec ${CONTAINER_ID} ansible-playbook -i /ansible/inventory-test /ansible/${PLAYBOOK} --syntax-check
-SYNTAX_CHECK_RESULT=$?
+for IMAGE in ${IMAGES}
+do
+  echo "[INFO] Starting tests on ${IMAGE}"
+  # start container
+  CONTAINER_ID=$(docker run --detach --volume "${PWD}:/ansible:ro" --volume "${PWD}/roles/${ROLE}/tests:/tests:ro" ${IMAGE}:latest /lib/systemd/systemd)
+  echo "[INFO] Container id ${CONTAINER_ID}"
 
-# first run test
-docker exec ${CONTAINER_ID} ansible-playbook -i /ansible/inventory-test /ansible/${PLAYBOOK}
-FIRST_RUN_RESULT=$?
+  # check syntax
+  docker exec ${CONTAINER_ID} ansible-playbook -i /ansible/inventory-test /ansible/${PLAYBOOK} --syntax-check
+  SYNTAX_CHECK_RESULT[${IMAGE}]=$?
 
-# stop and destroy container
-docker stop ${CONTAINER_ID}
-docker rm -v ${CONTAINER_ID}
+  # first run test
+  docker exec ${CONTAINER_ID} ansible-playbook -i /ansible/inventory-test /ansible/${PLAYBOOK}
+  FIRST_RUN_RESULT[${IMAGE}]=$?
+
+  # idempotence test
+  IDEMPOTENCE=$(mktemp)
+  docker exec ${CONTAINER_ID} ansible-playbook -i /ansible/inventory-test /ansible/${PLAYBOOK} | tee -a ${IDEMPOTENCE}
+  tail ${IDEMPOTENCE} | grep -q 'changed=0.*failed=0'
+  IDEMPOTENCE_RESULT[${IMAGE}]=$?
+  rm ${IDEMPOTENCE}
+
+  # functional test
+  docker exec ${CONTAINER_ID} /tests/test.sh
+  FUNCT_RESULT[${IMAGE}]=$?
+
+  #stop and destroy container
+  echo "[INFO] Stopping container..."
+  docker stop ${CONTAINER_ID}
+  echo "[INFO] Removing container..."
+  docker rm -v ${CONTAINER_ID}
+done
+
 rm ${PLAYBOOK}
 
-cat <<EOT
+echo
+echo "********************************************************************************"
+echo
+echo "[TEST RESULTS]"
+echo
+for IMAGE in ${IMAGES}
+do
+  cat <<EOT
+${IMAGE}
+Syntax check test   -   $(if [[ ${SYNTAX_CHECK_RESULT[${IMAGE}]} == 0 ]]; then echo SUCCESS; else echo FAILURE; fi)
+First run test      -   $(if [[ ${FIRST_RUN_RESULT[${IMAGE}]} == 0 ]]; then echo SUCCESS; else echo FAILURE; fi)
+Idempotence test    -   $(if [[ ${IDEMPOTENCE_RESULT[${IMAGE}]} == 0 ]]; then echo SUCCESS; else echo FAILURE; fi)
+Functional test     -   $(if [[ ${FUNCT_RESULT[${IMAGE}]} == 0 ]]; then echo SUCCESS; else echo FAILURE; fi)
 
-*---------------------------------*
-| TEST RESULTS                    |
-*---------------------------------*
-| Syntax check test   -   $(if [[ ${SYNTAX_CHECK_RESULT} == 0 ]]; then echo SUCCESS; else echo FAILURE; fi) |
-| First run test      -   $(if [[ ${FIRST_RUN_RESULT} == 0 ]]; then echo SUCCESS; else echo FAILURE; fi) |
-| Idempotence test    -   FAILURE |
-*---------------------------------*
 EOT
+done

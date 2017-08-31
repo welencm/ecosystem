@@ -1,0 +1,19 @@
+---
+- name: "add repository keys"
+  apt_key:
+    url: "https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key"
+    state: present
+  become: true
+
+- name: "add repository"
+  apt_repository:
+    repo: "deb http://packages.cloudfoundry.org/debian stable main"
+    state: present
+    update_cache: yes
+  become: true
+
+- name: "install cf-cli"
+  apt:
+    name: cf-cli
+    state: latest
+  become: true

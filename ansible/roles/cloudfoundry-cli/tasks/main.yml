@@ -1,0 +1,2 @@
+---
+- include: "cf-{{ ansible_pkg_mgr }}.yml"

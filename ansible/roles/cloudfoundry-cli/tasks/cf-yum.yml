@@ -1,0 +1,16 @@
+---
+- name: "add repository"
+  become: true
+  yum_repository:  
+    name: "cloudfoundry-cli"
+    description: "Cloud Foundry CLI"
+    baseurl: "https://packages.cloudfoundry.org/fedora"
+    enabled: yes
+    gpgcheck: yes
+    gpgkey: "https://packages.cloudfoundry.org/fedora/cli.cloudfoundry.org.key"
+
+- name: "install cf-cli"
+  become: true
+  yum:
+    name: cf-cli
+    state: latest
