@@ -13,7 +13,7 @@ desktop-ubuntu  ansible_user=ubuntu
 desktop-centos  ansible_user=vagrant
 
 [ecosystem-jenkins]
-jenkins-centos  ansible_user=vagrant
+jenkins-ubuntu  ansible_user=ubuntu
 
 [ecosystem-other]
 controller      ansible_user=ubuntu

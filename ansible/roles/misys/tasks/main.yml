@@ -5,12 +5,16 @@
     src: misys.cer
     dest: "{{ ansible_user_dir }}/misys.cer"
 
+# TODO adding certs in centos
+# TODO split centos/ubuntu
+# sudo openssl x509 -inform DER -outform PEM -in misys.cer -out /etc/pki/ca-trust/source/anchors/misys.crt
+# sudo update-ca-trust extract
 - name: "install certificate"
   become: yes
   become_method: sudo
   shell: "openssl x509 -inform DER -outform PEM -in {{ ansible_user_dir }}/misys.cer -out /usr/local/share/ca-certificates/misys.crt"
 
-- name: "install certificate"
+- name: "update certificates"
   become: yes
   become_method: sudo
   shell: "update-ca-certificates"

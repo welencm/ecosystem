@@ -3,6 +3,6 @@
 10.0.0.31 general-ubuntu
 10.0.0.32 general-centos
 10.0.0.33 desktop-centos
-10.0.0.40 jenkins-centos
+10.0.0.40 jenkins-ubuntu
 10.0.0.60 general-windows-2012
 10.0.0.61 general-windows-2008

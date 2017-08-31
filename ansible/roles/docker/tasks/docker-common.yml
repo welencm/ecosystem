@@ -17,3 +17,9 @@
     name: docker-compose
     state: present
   become: true
+
+- name: "restart service"
+  service:
+    name: docker
+    state: restarted
+  become: true

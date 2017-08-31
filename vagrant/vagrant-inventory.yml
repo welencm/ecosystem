@@ -64,8 +64,8 @@
   script: provision.sh
   gui: true
 
-- name: jenkins-centos
-  box: centos/7
+- name: jenkins-ubuntu
+  box: ubuntu/xenial64
   check_updates: false
   net: private_network
   ip: 10.0.0.40
@@ -76,7 +76,7 @@
       guest: 8080
       host: 8080
   script: provision.sh
-  ansible: jenkins-centos.yml
+  ansible: jenkins-ubuntu.yml
 
 - name: general-windows-2012
   box: windows/2012r2

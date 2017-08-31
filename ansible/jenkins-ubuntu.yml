@@ -1,5 +1,5 @@
 ---
-- hosts: jenkins-centos
+- hosts: jenkins-ubuntu
   roles:
     - common
     - docker
@@ -8,8 +8,10 @@
       file:
         path: "{{ ansible_user_dir}}/jenkins"
         state: directory
-# TODO pull image before starting
 # TODO parametrize version
+    - name: "pull docker container"
+      docker_image:
+        name: jenkins:2.60.2
     - name: "start jenkins container"
       docker_container:
         name: jenkins
@@ -20,3 +22,4 @@
           - "50000:50000"
         volumes:
           - "{{ ansible_user_dir}}/jenkins:/var/jenkins_home"
+          - "/etc/ssl/certs:/etc/ssl/certs"
