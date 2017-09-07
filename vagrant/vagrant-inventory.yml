@@ -53,6 +53,7 @@
   mem: 1024
   cpus: 1
   script: provision.sh
+  ansible: general-centos.yml
 
 - name: desktop-centos
   box: centos/7

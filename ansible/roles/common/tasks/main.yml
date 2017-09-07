@@ -23,14 +23,34 @@
 - include: common-yum.yml
   when: ansible_pkg_mgr == 'yum'
 
+- name: "user setup"
+  user:
+    name: "{{ ansible_user }}"
+    generate_ssh_key: yes
+    ssh_key_bits: 2048
+    password: '$6$ci45Bc.7Fc181jeL$ub7930PGzGPp2kqUZ8c8gMonI/0j9xfrEqsNxqZ./z8E9GnEcTqn1tc63gas.w9zHgdtB.fDRglqHF1KpZB87/'
+  become: true
+
 - name: "provide .vimrc"
   copy:
     src: ".vimrc"
     dest: "{{ ansible_user_dir }}"
+    mode: 0660
 
 - name: "update /etc/hosts file"
   blockinfile:
     block: "{{ lookup('file', 'hosts') }}"
     dest: "/etc/hosts"
     backup: yes
+  become: true
+
+- name: "provide ssh config"
+  copy:
+    src: "ssh.config"
+    dest: "{{ ansible_user_dir}}/.ssh/config"
+    mode: 0660
+
+- name: "set timezone"
+  timezone:
+    name: "CET"
   become: true
