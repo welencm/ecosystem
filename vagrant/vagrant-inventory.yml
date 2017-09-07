@@ -10,10 +10,10 @@
   ip: 10.0.0.20
   mem: 1024
   cpus: 1
-  ports:
-    - id: ssh
-      guest: 22
-      host: 2022
+  # ports:
+  #   - id: ssh
+  #     guest: 22
+  #     host: 2022
   script: provision.sh
 
 - name: desktop-ubuntu
@@ -23,13 +23,13 @@
   ip: 10.0.0.30
   mem: 4096
   cpus: 2
-  ports:
-    - id: ssh
-      guest: 22
-      host: 3022
-    - id: rdp
-      guest: 3389
-      host: 3089
+  # ports:
+  #   - id: ssh
+  #     guest: 22
+  #     host: 3022
+  #   - id: rdp
+  #     guest: 3389
+  #     host: 3089
   script: provision.sh
   ansible: desktop-ubuntu.yml
   gui: true
@@ -71,10 +71,10 @@
   ip: 10.0.0.40
   mem: 2048
   cpus: 2
-  ports:
-    - id: jenkins
-      guest: 8080
-      host: 8080
+  # ports:
+  #   - id: jenkins
+  #     guest: 8080
+  #     host: 8080
   script: provision.sh
   ansible: jenkins-ubuntu.yml
 
@@ -85,10 +85,10 @@
   ip: 10.0.0.60
   mem: 4096
   cpus: 2
-  ports:
-    - id: rdp
-      guest: 3389
-      host: 6089
+  # ports:
+  #   - id: rdp
+  #     guest: 3389
+  #     host: 6089
   gui: true
 
 - name: general-windows-2008
@@ -98,8 +98,8 @@
   ip: 10.0.0.61
   mem: 4096
   cpus: 4
-  ports:
-    - id: rdp
-      guest: 3389
-      host: 6189
+  # ports:
+  #   - id: rdp
+  #     guest: 3389
+  #     host: 6189
   gui: true
