@@ -53,10 +53,11 @@
     - user
 
 - name: "provide ssh config"
-  copy:
-    src: "ssh.config"
+  blockinfile:
+    block: "{{ lookup('file', 'ssh.config') }}"
     dest: "{{ ansible_user_dir}}/.ssh/config"
-    mode: 0660
+    backup: yes
+  become: true
   tags:
     - user
 
