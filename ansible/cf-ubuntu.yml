@@ -1,0 +1,8 @@
+---
+- hosts: cf-ubuntu
+  roles:
+    - common
+    - cloudfoundry-cli
+    - docker
+    - java
+    - misys
