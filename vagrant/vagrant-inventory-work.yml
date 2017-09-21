@@ -1,0 +1,26 @@
+# ecosystem vagrant inventory - work version
+#
+# remember to add vm also to ansible inventory and hosts file
+# for centos vm's run following command:
+#  vagrant plugin install vagrant-vbguest
+---
+- name: jenkins-ubuntu
+  box: ubuntu/xenial64
+  check_updates: false
+  net: private_network
+  ip: 10.0.0.40
+  mem: 2048
+  cpus: 2
+  script: provision.sh
+  ansible: jenkins-ubuntu.yml
+
+- name: cf-ubuntu
+  box: ubuntu/xenial64
+  check_updates: false
+  net: private_network
+  ip: 10.0.0.33
+  mem: 1024
+  cpus: 1
+  script: provision.sh
+  ansible: cf-ubuntu.yml
+  workspace: "../.."

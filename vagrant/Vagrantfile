@@ -2,7 +2,14 @@
 # vi: set ft=ruby :
 
 require 'yaml'
-nodes = YAML.load_file('vagrant-inventory.yml')
+
+if ENV['ENV'] == "work"
+  nodes = YAML.load_file('vagrant-inventory-work.yml')
+elsif ENV['ENV'] == "home"
+  nodes = YAML.load_file('vagrant-inventory-home.yml')
+else
+  nodes = YAML.load_file('vagrant-inventory.yml')
+end
 
 Vagrant.configure(2) do |config|
   nodes.each do |nodes|
@@ -49,7 +56,6 @@ Vagrant.configure(2) do |config|
       end
 
       # provisioning
-      node.vm.provision "file", source: ".bashrc", destination: ".bashrc"
       if nodes["script"]
           node.vm.provision "shell", path: nodes["script"], privileged: false
       end

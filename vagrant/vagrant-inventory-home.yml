@@ -1,0 +1,17 @@
+# ecosystem vagrant inventory
+#
+# remember to add vm also to ansible inventory and hosts file
+# for centos vm's run following command:
+#  vagrant plugin install vagrant-vbguest
+---
+- name: desktop-ubuntu
+  box: ubuntu/xenial64
+  check_updates: false
+  net: private_network
+  ip: 10.0.0.30
+  mem: 4096
+  cpus: 2
+  script: provision.sh
+  ansible: desktop-ubuntu.yml
+  gui: true
+  workspace: "../.."
