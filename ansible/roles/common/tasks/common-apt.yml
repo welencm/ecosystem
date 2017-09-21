@@ -8,3 +8,5 @@
     - unattended-upgrades
     - ssh
   become: true
+  tags:
+    - packages

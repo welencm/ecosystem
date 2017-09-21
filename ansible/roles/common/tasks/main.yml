@@ -16,6 +16,8 @@
     - ncdu
     - htop
   become: true
+  tags:
+    - packages
 
 - include: common-apt.yml
   when: ansible_pkg_mgr == 'apt'
@@ -30,12 +32,33 @@
     ssh_key_bits: 2048
     password: '$6$ci45Bc.7Fc181jeL$ub7930PGzGPp2kqUZ8c8gMonI/0j9xfrEqsNxqZ./z8E9GnEcTqn1tc63gas.w9zHgdtB.fDRglqHF1KpZB87/'
   become: true
+  tags:
+    - password
+    - user
+
+- name: "provide .bashrc"
+  copy:
+    src: ".bashrc"
+    dest: "{{ ansible_user_dir }}"
+    mode: 0660
+  tags:
+    - user
 
 - name: "provide .vimrc"
   copy:
     src: ".vimrc"
     dest: "{{ ansible_user_dir }}"
     mode: 0660
+  tags:
+    - user
+
+- name: "provide ssh config"
+  copy:
+    src: "ssh.config"
+    dest: "{{ ansible_user_dir}}/.ssh/config"
+    mode: 0660
+  tags:
+    - user
 
 - name: "update /etc/hosts file"
   blockinfile:
@@ -43,14 +66,12 @@
     dest: "/etc/hosts"
     backup: yes
   become: true
-
-- name: "provide ssh config"
-  copy:
-    src: "ssh.config"
-    dest: "{{ ansible_user_dir}}/.ssh/config"
-    mode: 0660
+  tags:
+    - hosts
 
 - name: "set timezone"
   timezone:
     name: "CET"
   become: true
+  tags:
+    - time
