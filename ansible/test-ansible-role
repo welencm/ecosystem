@@ -1,12 +1,36 @@
 #!/bin/bash
 
-IMAGES="art-ubuntu-1604 art-centos-7"
-ROLE=$1
+function display_help {
+  echo "$(basename $0) - testing ansible roles in Docker containers"
+  echo "Usage:"
+  echo "  $(basename $0) [-i IMAGE_REGEX] ROLE"
+}
+
+# process input
+while [ "$1" != "" ];
+do
+  case $1 in
+    -h | --help)     display_help
+                     exit 0
+                     ;;
+    -i | --images)   IMAGE_REGEX=$2
+                     shift
+                     shift
+                     ;;
+    *)               ROLE=$1
+                     shift
+  esac
+done
 
 # check input
+if [[ -z "${ROLE}" ]]; then
+  display_help
+  exit 1
+fi
+
 if [[ ! -d "roles/${ROLE}" ]]; then
   echo "Role ${ROLE} doesn't exists"
-  echo "Aborting"
+  display_help
   exit 1
 fi
 
@@ -19,6 +43,15 @@ cat <<EOT > ${PLAYBOOK}
 EOT
 
 declare -A SYNTAX_CHECK_RESULT FIRST_RUN_RESULT IDEMPOTENCE_RESULT FUNCT_RESULT
+ART_IMAGES="welencm/art-centos-7 welencm/art-ubuntu-1604"
+
+IMAGES=""
+for IMAGE in ${ART_IMAGES}
+do
+  if [[ ${IMAGE} =~ .*${IMAGE_REGEX}.* ]]; then
+    IMAGES="${IMAGES} ${IMAGE}"
+  fi
+done
 
 for IMAGE in ${IMAGES}
 do

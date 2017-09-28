@@ -1,0 +1,17 @@
+---
+- name: "add repository"
+  become: true
+  yum_repository:
+    name: "azure-cli"
+    description: "Azure CLI"
+    baseurl: "https://packages.microsoft.com/yumrepos/azure-cli"
+    enabled: yes
+    gpgcheck: yes
+    gpgkey: "https://packages.microsoft.com/keys/microsoft.asc"
+
+- name: "install azure-cli"
+  become: true
+  yum:
+    name: azure-cli
+    state: latest
+    update_cache: yes

@@ -1,0 +1,26 @@
+---
+- name: "add repository keys"
+  apt_key:
+    keyserver: "packages.microsoft.com"
+    id: 417A0893
+    state: present
+  become: true
+
+- name: "add repository"
+  apt_repository:
+    repo: "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ wheezy main"
+    state: present
+    update_cache: yes
+  become: true
+
+- name: "install dependencies"
+  apt:
+    name: "apt-transport-https"
+    state: present
+  become: true
+
+- name: "install azure-cli"
+  apt:
+    name: "azure-cli"
+    state: latest
+  become: true
