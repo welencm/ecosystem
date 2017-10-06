@@ -1,8 +1,5 @@
 ---
-- hosts: jenkins-ubuntu
-  roles:
-    - common
-    - docker
+- hosts: jenkins-master
   tasks:
     - name: "create jenkins folder"
       file:
@@ -12,6 +9,7 @@
     - name: "pull docker container"
       docker_image:
         name: jenkins:2.60.2
+
     - name: "start jenkins container"
       docker_container:
         name: jenkins
@@ -23,3 +21,9 @@
         volumes:
           - "{{ ansible_user_dir}}/jenkins:/var/jenkins_home"
           - "/etc/ssl/certs:/etc/ssl/certs"
+
+    - name: "create cron entry"
+      cron:
+        name: "start jenkins master"
+        special_time: reboot
+        job: "docker start jenkins"

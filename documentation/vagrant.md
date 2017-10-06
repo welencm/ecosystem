@@ -14,7 +14,7 @@ Groups and special addresses:
 - 20 - controller
 - 30 - desktop-ubuntu
 - 40 - jenkins-ubuntu
-- 31-59 - Unix VMs
+- 20-59 - Unix VMs
 - 60-69 - Windows VMs
 
 ## Ports

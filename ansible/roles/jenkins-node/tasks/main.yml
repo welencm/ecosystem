@@ -1,0 +1,23 @@
+---
+- name: "download swarm-client"
+  get_url:
+    url: "{{ swarm_client_url }}"
+    dest: "{{ ansible_user_dir }}/{{ swarm_client_jar }}"
+
+- name: "provide startup script"
+  template:
+    src: jenkins-node.sh.j2
+    dest: "{{ ansible_user_dir }}/jenkins-node.sh"
+    mode: 0744
+
+- name: "start swarm client"
+  command: "{{ ansible_user_dir }}/jenkins-node.sh"
+  async:
+  poll: 0
+
+
+- name: "add to cron"
+  cron:
+    name: "start jenkins swarm client"
+    special_time: reboot
+    job: "{{ ansible_user_dir }}/jenkins-node.sh"

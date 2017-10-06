@@ -1,0 +1,7 @@
+swarm_client_version: "3.4"
+swarm_client_jar: "swarm-client-{{ swarm_client_version }}.jar"
+swarm_client_url: "https://repo.jenkins-ci.org/releases/org/jenkins-ci/plugins/swarm-client/{{ swarm_client_version}}/{{ swarm_client_jar }}"
+
+jenkins_master: "http://jenkins-master"
+jenkins_user: "jenkins"
+jenkins_password: "jenkins"

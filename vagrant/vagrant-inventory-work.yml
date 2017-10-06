@@ -4,7 +4,7 @@
 # for centos vm's run following command:
 #  vagrant plugin install vagrant-vbguest
 ---
-- name: jenkins-ubuntu
+- name: jenkins-master
   box: ubuntu/xenial64
   check_updates: false
   net: private_network
@@ -12,7 +12,7 @@
   mem: 2048
   cpus: 2
   script: provision.sh
-  ansible: jenkins-ubuntu.yml
+  ansible: jenkins-master.yml
 
 - name: cf-ubuntu
   box: ubuntu/xenial64
@@ -23,4 +23,15 @@
   cpus: 1
   script: provision.sh
   ansible: cf-ubuntu.yml
+  workspace: "../.."
+
+- name: jenkins-ubuntu-1
+  box: ubuntu/xenial64
+  check_updates: false
+  net: private_network
+  ip: 10.0.0.41
+  mem: 1024
+  cpus: 1
+  script: provision.sh
+  ansible: jenkins-ubuntu-1.yml
   workspace: "../.."

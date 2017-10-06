@@ -2,16 +2,17 @@
 controller      ansible_user=ubuntu
 jenkins-ubuntu  ansible_user=ubuntu
 desktop-ubuntu  ansible_user=ubuntu
-general-ubuntu  ansible_user=ubuntu
-general-centos  ansible_user=vagrant
+general-ubuntu-1 ansible_user=ubuntu
+general-centos-1 ansible_user=vagrant
 cf-ubuntu       ansible_user=ubuntu
 
 [home]
 dekstop-ubuntu  ansible_user=ubuntu
 
 [work]
-jenkins-ubuntu  ansible_user=ubuntu
+jenkins-master  ansible_user=ubuntu
 cf-ubuntu       ansible_user=ubuntu
+jenkins-ubuntu-1   ansible_user=ubuntu
 
 [windows]
 general-windows-2012

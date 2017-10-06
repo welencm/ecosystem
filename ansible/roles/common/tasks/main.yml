@@ -52,6 +52,22 @@
   tags:
     - user
 
+- name: "make sure .ssh directory exists"
+  file:
+    path: "{{ ansible_user_dir}}/.ssh"
+    state: directory
+  tags:
+    - user
+    - ssh
+
+- name: "make sure .ssh/config exists"
+  file:
+    path: "{{ ansible_user_dir}}/.ssh/config"
+    state: touch
+  tags:
+    - user
+    - ssh
+
 - name: "provide ssh config"
   blockinfile:
     block: "{{ lookup('file', 'ssh.config') }}"
@@ -60,6 +76,7 @@
   become: true
   tags:
     - user
+    - ssh
 
 - name: "update /etc/hosts file"
   blockinfile:
