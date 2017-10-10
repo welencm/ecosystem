@@ -6,7 +6,7 @@
     update_cache: yes
   become: true
 
-- name: "accept Java 8 License"
+- name: "accept license"
   become: yes
   debconf: name='oracle-java8-installer' question='shared/accepted-oracle-license-v1-1' value='true' vtype='select'
 
@@ -18,10 +18,4 @@
     - oracle-java8-installer
     - oracle-java8-set-default
     - ca-certificates
-  become: true
-
-- name: "install maven"
-  apt:
-    name: maven
-    state: present
   become: true

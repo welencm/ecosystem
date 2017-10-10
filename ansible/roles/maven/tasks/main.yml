@@ -1,0 +1,6 @@
+---
+- name: "install"
+  package:
+    name: maven
+    state: present
+  become: true

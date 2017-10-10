@@ -8,17 +8,11 @@
 
 - name: "install jdk"
   yum:
-    name: "{{ jdk_rpm }}"
+    name: "{{ ansible_user_dir}}/{{ jdk_rpm }}"
     state: present
   become: true
 
 - name: "remove jdk rpm"
   file:
-    path: "jdk-8u131-linux-x64.rpm"
+    path: "{{ ansible_user_dir}}/{{ jdk_rpm }}"
     state: absent
-
-- name: "install maven"
-  yum:
-    name: maven
-    state: present
-  become: true

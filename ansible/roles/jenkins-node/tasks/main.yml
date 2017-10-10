@@ -18,6 +18,6 @@
 
 - name: "add to cron"
   cron:
-    name: "start jenkins swarm client"
+    name: "start jenkins swarm-client"
     special_time: reboot
     job: "{{ ansible_user_dir }}/jenkins-node.sh"
