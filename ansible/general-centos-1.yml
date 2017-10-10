@@ -1,0 +1,5 @@
+---
+- hosts: general-centos-1
+  roles:
+    - common
+    - docker

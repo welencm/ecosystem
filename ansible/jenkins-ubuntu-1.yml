@@ -1,6 +1,0 @@
----
-- hosts: jenkins-ubuntu-1
-  roles:
-    - common
-    - java
-    - jenkins-node

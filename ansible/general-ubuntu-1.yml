@@ -1,0 +1,5 @@
+---
+- hosts: general-ubuntu-1
+  roles:
+    - common
+    - docker

@@ -25,40 +25,33 @@
   ansible: cf-ubuntu.yml
   workspace: "../.."
 
-- name: jenkins-ubuntu-1
+- name: general-ubuntu-1
   box: ubuntu/xenial64
   check_updates: false
   net: private_network
   ip: 10.0.0.31
-  mem: 1024
-  cpus: 1
+  mem: 2048
+  cpus: 2
   script: provision.sh
-  ansible: jenkins-ubuntu-1.yml
   workspace: "../.."
 
-- name: swarm-ubuntu-1
+- name: general-ubuntu-2
   box: ubuntu/zesty64
   check_updates: false
   net: private_network
-  ip: 10.0.0.41
-  mem: 1024
-  cpus: 1
+  ip: 10.0.0.32
+  mem: 2048
+  cpus: 2
   script: provision.sh
+  workspace: "../.."
 
-- name: swarm-ubuntu-2
-  box: ubuntu/zesty64
+- name: general-centos-1
+  box: centos/7
   check_updates: false
   net: private_network
-  ip: 10.0.0.42
-  mem: 1024
-  cpus: 1
+  ip: 10.0.0.33
+  mem: 2048
+  cpus: 2
   script: provision.sh
-
-- name: swarm-ubuntu-3
-  box: ubuntu/zesty64
-  check_updates: false
-  net: private_network
-  ip: 10.0.0.43
-  mem: 1024
-  cpus: 1
-  script: provision.sh
+  ansible: general-centos-1.yml
+  workspace: "../.."

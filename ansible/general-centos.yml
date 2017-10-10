@@ -1,4 +1,0 @@
----
-- hosts: general-centos
-  roles:
-    - common
