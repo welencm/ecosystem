@@ -8,14 +8,19 @@ Important files:
 - provision.sh
 
 ## IP addresses
-VM's are assigned with IP addresses in following pattern: 10.0.0.[20-255]
+VM's are assigned with IP addresses in following pattern: 10.0.0.[XX]
 
-Groups and special addresses:
+Special addresses:
 - 20 - controller
-- 30 - desktop-ubuntu
-- 40 - jenkins-ubuntu
-- 20-59 - Unix VMs
+- 21 - desktop-ubuntu
+- 22 - jenkins-master
+
+Groups:
+- 30-49 - work VMs
+- 50-69 - home VMs
 - 60-69 - Windows VMs
 
-## Ports
-TODO
+## Port forwarding
+- SSH XX22
+- RDP XX89
+- HTTP XX80

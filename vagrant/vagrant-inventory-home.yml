@@ -8,9 +8,9 @@
   box: ubuntu/xenial64
   check_updates: false
   net: private_network
-  ip: 10.0.0.30
+  ip: 10.0.0.21
   mem: 4096
-  cpus: 2
+  cpus: 4
   script: provision.sh
   ansible: desktop-ubuntu.yml
   gui: true

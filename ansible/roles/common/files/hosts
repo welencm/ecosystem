@@ -1,13 +1,7 @@
-10.0.0.20 controller
-10.0.0.21 general-ubuntu-1
-10.0.0.22 general-centos-1
-
-10.0.0.30 desktop-ubuntu
-
-10.0.0.33 cf-ubuntu
-
-10.0.0.40 jenkins-master
-10.0.0.41 jenkins-ubuntu-1
-
-10.0.0.60 general-windows-2012
-10.0.0.61 general-windows-2008
+10.0.0.22 jenkins-master
+10.0.0.30 cf-ubuntu
+10.0.0.31 jenkins-ubuntu-1
+10.0.0.41 swarm-ubuntu-1
+10.0.0.42 swarm-ubuntu-2
+10.0.0.43 swarm-ubuntu-3
+10.0.0.21 desktop-ubuntu

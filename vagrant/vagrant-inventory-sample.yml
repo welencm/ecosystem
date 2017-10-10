@@ -11,36 +11,46 @@
   ip: 10.0.0.20
   mem: 1024
   cpus: 1
-  # ports:
-  #   - id: ssh
-  #     guest: 22
-  #     host: 2022
+  ports:
+    - id: ssh
+      guest: 22
+      host: 2022
   script: provision.sh
 
 - name: desktop-ubuntu
   box: ubuntu/xenial64
   check_updates: false
   net: private_network
-  ip: 10.0.0.30
+  ip: 10.0.0.21
   mem: 4096
-  cpus: 2
-  # ports:
-  #   - id: ssh
-  #     guest: 22
-  #     host: 3022
-  #   - id: rdp
-  #     guest: 3389
-  #     host: 3089
+  cpus: 4
+  ports:
+    - id: ssh
+      guest: 22
+      host: 2122
+    - id: rdp
+      guest: 3389
+      host: 2189
   script: provision.sh
   ansible: desktop-ubuntu.yml
   gui: true
   workspace: "../.."
 
+- name: jenkins-master
+  box: ubuntu/xenial64
+  check_updates: false
+  net: private_network
+  ip: 10.0.0.22
+  mem: 2048
+  cpus: 2
+  script: provision.sh
+  ansible: jenkins-master.yml
+
 - name: general-ubuntu
   box: ubuntu/xenial64
   check_updates: false
   net: private_network
-  ip: 10.0.0.31
+  ip: 10.0.0.30
   mem: 1024
   cpus: 1
   script: provision.sh
@@ -50,37 +60,12 @@
   box: centos/7
   check_updates: false
   net: private_network
-  ip: 10.0.0.32
+  ip: 10.0.0.31
   mem: 1024
   cpus: 1
   script: provision.sh
   ansible: general-centos.yml
   workspace: "../.."
-
-- name: cf-ubuntu
-  box: ubuntu/xenial64
-  check_updates: false
-  net: private_network
-  ip: 10.0.0.33
-  mem: 1024
-  cpus: 1
-  script: provision.sh
-  ansible: cf-ubuntu.yml
-  workspace: "../.."
-
-- name: jenkins-ubuntu
-  box: ubuntu/xenial64
-  check_updates: false
-  net: private_network
-  ip: 10.0.0.40
-  mem: 2048
-  cpus: 2
-  # ports:
-  #   - id: jenkins
-  #     guest: 8080
-  #     host: 8080
-  script: provision.sh
-  ansible: jenkins-ubuntu.yml
 
 - name: general-windows-2012
   box: windows/2012r2
@@ -89,10 +74,10 @@
   ip: 10.0.0.60
   mem: 4096
   cpus: 2
-  # ports:
-  #   - id: rdp
-  #     guest: 3389
-  #     host: 6089
+  ports:
+    - id: rdp
+      guest: 3389
+      host: 6089
   gui: true
 
 - name: general-windows-2008
@@ -102,8 +87,8 @@
   ip: 10.0.0.61
   mem: 4096
   cpus: 4
-  # ports:
-  #   - id: rdp
-  #     guest: 3389
-  #     host: 6189
+  ports:
+    - id: rdp
+      guest: 3389
+      host: 6189
   gui: true

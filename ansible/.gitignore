@@ -1,2 +1,4 @@
 *.retry
 test
+roles/common/files/hosts.*
+inventory.*
