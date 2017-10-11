@@ -10,11 +10,11 @@
     dest: "{{ ansible_user_dir }}/jenkins-node.sh"
     mode: 0744
 
+#--extra-vars '{"labels": "java docker compile maven"}'
 - name: "start swarm client"
   command: "{{ ansible_user_dir }}/jenkins-node.sh"
   async:
   poll: 0
-
 
 - name: "add to cron"
   cron:

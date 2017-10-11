@@ -5,6 +5,7 @@ java -jar {{ ansible_user_dir }}/swarm-client-3.4.jar \
      -sslFingerprints "" \
      -username {{ jenkins_user }} \
      -password {{ jenkins_password }} \
-     -retry 3 \
-     -name {{ ansible_hostname }}
+     -name {{ ansible_hostname }} \
+     -executors 1 \
+     -labels "{{labels}}" \
      >> jenkins-node.log 2>&1 &

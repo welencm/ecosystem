@@ -48,5 +48,5 @@ EOT
 # remove ROLE and HOST from parameter list
 shift 2
 
-ansible-playbook "${PLAYBOOK}" $@
+ansible-playbook "${PLAYBOOK}" "$@"
 rm -rf "${PLAYBOOK}"

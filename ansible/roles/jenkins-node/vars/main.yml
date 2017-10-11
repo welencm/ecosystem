@@ -5,3 +5,5 @@ swarm_client_url: "https://repo.jenkins-ci.org/releases/org/jenkins-ci/plugins/s
 jenkins_master: "http://jenkins-master"
 jenkins_user: "jenkins"
 jenkins_password: "jenkins"
+
+labels: 'java'
