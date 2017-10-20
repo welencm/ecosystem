@@ -1,0 +1,12 @@
+[Unit]
+Description=Jenkins swarm service
+After=network.target
+
+[Service]
+Type=simple
+User=iperf
+ExecStart=/home/vagrant/jenkins-node.sh
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

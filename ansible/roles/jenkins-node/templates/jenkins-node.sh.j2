@@ -1,11 +1,11 @@
 #!/bin/bash
 
 java -jar {{ ansible_user_dir }}/swarm-client-3.4.jar \
-     -master {{ jenkins_master }} \
+     -master {{ master }} \
      -sslFingerprints "" \
-     -username {{ jenkins_user }} \
-     -password {{ jenkins_password }} \
+     -username {{ user }} \
+     -password {{ password }} \
      -name {{ ansible_hostname }} \
-     -executors 1 \
+     -executors {{ executors }} \
      -labels "{{labels}}" \
      >> jenkins-node.log 2>&1 &

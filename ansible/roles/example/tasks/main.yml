@@ -1,5 +1,0 @@
----
-- name: "create dir"
-  file:
-    path: "{{ ansible_user_dir }}/test.dir"
-    state: directory
