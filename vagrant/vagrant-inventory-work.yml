@@ -14,17 +14,6 @@
   script: provision.sh
   ansible: jenkins-master.yml
 
-- name: swarm-ubuntu-1
-  box: ubuntu/xenial64
-  check_updates: false
-  net: private_network
-  ip: 10.0.0.30
-  mem: 8192
-  cpus: 4
-  script: provision.sh
-  ansible: swarm-ubuntu-1.yml
-  workspace: "../.."
-
 - name: general-ubuntu-1
   box: ubuntu/xenial64
   check_updates: false
