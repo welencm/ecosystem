@@ -1,4 +1,10 @@
 ---
+- include: common-ubuntu.yml
+  when: ansible_distribution == 'Ubuntu'
+
+- include: common-centos.yml
+  when: ansible_distribution == 'CentOS'
+
 - name: "install common packages"
   package:
     name: "{{ item }}"
@@ -14,16 +20,9 @@
     - htop
     - tmux
     - ncdu
-    - htop
   become: true
   tags:
     - packages
-
-- include: common-apt.yml
-  when: ansible_pkg_mgr == 'apt'
-
-- include: common-yum.yml
-  when: ansible_pkg_mgr == 'yum'
 
 - name: "user setup"
   user:

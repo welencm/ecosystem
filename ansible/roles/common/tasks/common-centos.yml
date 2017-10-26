@@ -1,0 +1,45 @@
+---
+- name: "install useful centos specific packages"
+  yum:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  with_items:
+    - openssh
+    - openssh-clients
+    - openssh-server
+    - redhat-lsb-core
+    - net-tools
+    - epel-release
+    - kernel-headers
+    - kernel-devel
+    - yum-cron
+  become: true
+  tags:
+    - packages
+
+- name: "disable SELinux"
+  selinux:
+    state: disabled
+  become: true
+
+- name: "setup yum-cron"
+  lineinfile:
+    dest: "/etc/yum/yum-cron.conf"
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.value }}"
+  with_items:
+    - { regexp: '^update_cmd =', value: 'update_cmd = security' }
+    - { regexp: '^apply_updates =', value: 'apply_updates = yes' }
+  become: true
+  tags:
+    - security
+
+- name: "restart yum-cron service"
+  service:
+    name: yum-cron
+    state: restarted
+    enabled: yes
+  become: true
+  tags:
+    - security
