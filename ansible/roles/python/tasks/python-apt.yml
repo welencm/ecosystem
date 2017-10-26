@@ -1,19 +1,19 @@
 ---
 - name: "install Python 2"
   apt:
-    name: python
+    name: "python"
     state: present
     update_cache: yes
   become: true
 
 - name: "install Python 3"
   apt:
-    name: python3
+    name: "python3"
     state: present
   become: true
 
 - name: "install pip"
   apt:
-    name: python-pip
+    name: "python-pip"
     state: present
   become: true
