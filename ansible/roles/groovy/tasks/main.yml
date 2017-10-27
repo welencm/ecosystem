@@ -7,6 +7,11 @@
     group: "{{ groovy_group }}"
   become: true
 
+- name: "obtain groovy binary statistics"
+  stat:
+    path: "{{ groovy_dir }}/bin/groovy"
+  register: groovy_binary
+
 - name: "download and unzip"
   unarchive:
     src: "{{ groovy_url }}"
@@ -14,6 +19,7 @@
     dest: "{{ groovy_base }}"
     validate_certs: yes
     remote_src: yes
+  when: groovy_binary.stat.exists == false
   become: true
 
 - name: "create link to current version"
@@ -23,6 +29,13 @@
     state: link
     owner: "{{ groovy_owner }}"
     group: "{{ groovy_group }}"
+  become: true
+
+- name: "create /usr/bin/groovy link"
+  file:
+    path: "/usr/bin/groovy"
+    src: "{{ groovy_home }}/bin/groovy"
+    state: link
   become: true
 
 - name: "set environmental variables"
