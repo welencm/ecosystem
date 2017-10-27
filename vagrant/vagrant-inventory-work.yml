@@ -24,16 +24,6 @@
   script: provision.sh
   workspace: "../.."
 
-- name: general-ubuntu-2
-  box: ubuntu/zesty64
-  check_updates: false
-  net: private_network
-  ip: 10.0.0.32
-  mem: 2048
-  cpus: 2
-  script: provision.sh
-  workspace: "../.."
-
 - name: general-centos-1
   box: centos/7
   check_updates: false

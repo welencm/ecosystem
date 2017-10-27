@@ -1,7 +1,6 @@
 [work]
 jenkins-master
 general-ubuntu-1
-general-ubuntu-2
 general-centos-1 ansible_user=vagrant
 
 [home]
