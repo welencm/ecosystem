@@ -17,6 +17,7 @@
     - unzip
     - tar
     - wget
+    - ca-certificates
     - htop
     - tmux
     - ncdu
@@ -59,19 +60,12 @@
     - user
     - ssh
 
-- name: "make sure .ssh/config exists"
-  file:
-    path: "{{ ansible_user_dir}}/.ssh/config"
-    state: touch
-  tags:
-    - user
-    - ssh
-
 - name: "provide ssh config"
   blockinfile:
     block: "{{ lookup('file', 'ssh.config') }}"
     dest: "{{ ansible_user_dir}}/.ssh/config"
     backup: yes
+    create: yes
   become: true
   tags:
     - user
