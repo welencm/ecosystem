@@ -3,7 +3,6 @@
   apt:
     name: "python"
     state: present
-    update_cache: yes
   become: true
 
 - name: "install Python 3"
