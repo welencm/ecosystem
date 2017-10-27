@@ -1,18 +1,49 @@
 ---
-- name: "download jdk rpm"
-  get_url:
-    url: "{{ jdk_url_prefix }}{{ jdk_version }}/{{ jdk_url_hash }}/{{ jdk_rpm }}"
-    headers: 'Cookie:oraclelicense=accept-securebackup-cookie'
-    dest: "{{ ansible_user_dir}}/{{ jdk_rpm }}"
-    force: no
+- name: "obtain java binary statistics"
+  stat:
+    path: "{{ java_dir }}/bin/java"
+  register: java_binary
 
-- name: "install jdk"
-  yum:
-    name: "{{ ansible_user_dir}}/{{ jdk_rpm }}"
-    state: present
+- name: "download java archive"
+  get_url:
+    url: "{{ java_url_prefix }}{{ java_version }}/{{ java_url_hash }}/{{ java_tgz }}"
+    headers: 'Cookie:oraclelicense=accept-securebackup-cookie'
+    dest: "{{ java_base }}/{{ java_tgz }}"
+    force: no
+  when: java_binary.stat.exists == false
   become: true
 
-- name: "remove jdk rpm"
+- name: "extract archive"
+  unarchive:
+    src: "{{ java_base }}/{{ java_tgz }}"
+    remote_src: yes
+    dest: "{{ java_base }}"
+    creates: "{{ java_dir }}"
+  when: java_binary.stat.exists == false
+  become: true
+
+- name: "create link to current version directory"
   file:
-    path: "{{ ansible_user_dir}}/{{ jdk_rpm }}"
+    path: "{{ java_home }}"
+    src: "{{ java_dir }}"
+    state: link
+  become: true
+
+- name: "create /usr/bin/java link"
+  file:
+    path: "/usr/bin/java"
+    src: "{{ java_home }}/bin/java"
+    state: link
+  become: true
+
+- name: "set environmental variables"
+  template:
+    src: java.sh.j2
+    dest: "/etc/profile.d/java.sh"
+  become: true
+
+- name: "remove archive"
+  file:
+    path: "{{ java_base }}/{{ java_tgz }}"
     state: absent
+  become: true

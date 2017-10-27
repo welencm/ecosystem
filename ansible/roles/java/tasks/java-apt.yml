@@ -17,5 +17,4 @@
   with_items:
     - oracle-java8-installer
     - oracle-java8-set-default
-    - ca-certificates
   become: true

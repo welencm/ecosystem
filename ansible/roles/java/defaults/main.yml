@@ -1,10 +1,14 @@
 ---
 java:
   major: "8"
-  minor: "144"
-  build: "01"
+  minor: "151"
+  build: "12"
 
-jdk_url_prefix: "http://download.oracle.com/otn-pub/java/jdk/"
-jdk_url_hash: "090f390dda5b47b9b721c7dfaa008135"
-jdk_version: "{{ java.major }}u{{ java.minor }}-b{{ java.build }}"
-jdk_rpm: "jdk-{{ java.major }}u{{ java.minor }}-linux-x64.rpm"
+java_url_prefix: "http://download.oracle.com/otn-pub/java/jdk/"
+java_url_hash: "e758a0de34e24606bca991d704f6dcbf"
+java_version: "{{ java.major }}u{{ java.minor }}-b{{ java.build }}"
+java_tgz: "jdk-{{ java.major }}u{{ java.minor }}-linux-x64.tar.gz"
+
+java_base: "/opt"
+java_dir: "{{ java_base }}/jdk1.{{ java.major }}.0_{{ java.minor }}"
+java_home: "/opt/jdk"
