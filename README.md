@@ -1,2 +1,2 @@
 # ecosystem
-DevOps technical ecosystem 
+DevOps technical ecosystem

@@ -4,7 +4,8 @@ Vagrant is used for creating and managing VMs that are part of the ecosystem.
 
 Important files:
 - Vagrantfile
-- vagrant-inventory.yml
+- vagrant-inventory-home.yml
+- vagrant-inventory-work.yml
 - provision.sh
 
 ## IP addresses
