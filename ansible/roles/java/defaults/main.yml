@@ -12,3 +12,6 @@ java_tgz: "jdk-{{ java.major }}u{{ java.minor }}-linux-x64.tar.gz"
 java_base: "/opt"
 java_dir: "{{ java_base }}/jdk1.{{ java.major }}.0_{{ java.minor }}"
 java_home: "/opt/jdk"
+
+java_owner: root
+java_group: "{{ java_owner }}"

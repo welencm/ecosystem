@@ -7,7 +7,7 @@
     group: "{{ groovy_group }}"
   become: true
 
-- name: "obtain groovy binary statistics"
+- name: "check if already installed"
   stat:
     path: "{{ groovy_dir }}/bin/groovy"
   register: groovy_binary

@@ -1,5 +1,13 @@
 ---
-- name: "obtain java binary statistics"
+- name: "create base directory"
+  file:
+    path: "{{ java_base }}"
+    state: directory
+    owner: "{{ java_owner }}"
+    group: "{{ java_group }}"
+  become: true
+
+- name: "check if already installed"
   stat:
     path: "{{ java_dir }}/bin/java"
   register: java_binary
@@ -19,6 +27,8 @@
     remote_src: yes
     dest: "{{ java_base }}"
     creates: "{{ java_dir }}"
+    owner: "{{ java_owner }}"
+    group: "{{ java_group }}"
   when: java_binary.stat.exists == false
   become: true
 
@@ -29,11 +39,14 @@
     state: link
   become: true
 
-- name: "create /usr/bin/java link"
+- name: "create /usr/bin links"
   file:
-    path: "/usr/bin/java"
-    src: "{{ java_home }}/bin/java"
+    path: "/usr/bin/{{ item }}"
+    src: "{{ java_home }}/bin/{{ item }}"
     state: link
+  with_items:
+    - "java"
+    - "javac"
   become: true
 
 - name: "set environmental variables"
