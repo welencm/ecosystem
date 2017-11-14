@@ -1,0 +1,17 @@
+---
+- name: "add microsoft repository"
+  become: true
+  yum_repository:
+    name: "azure-cli"
+    description: "Azure CLI"
+    baseurl: "https://packages.microsoft.com/rhel/7/prod/"
+    enabled: yes
+    gpgcheck: yes
+    gpgkey: "https://packages.microsoft.com/keys/microsoft.asc"
+
+- name: "install latest version"
+  become: true
+  yum:
+    name: powershell
+    state: latest
+    update_cache: yes

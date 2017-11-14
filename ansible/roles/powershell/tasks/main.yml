@@ -1,0 +1,2 @@
+---
+- include: "powershell-{{ ansible_pkg_mgr }}.yml"

@@ -1,0 +1,20 @@
+---
+- name: "add microsoft repository key"
+  apt_key:
+    url: "https://packages.microsoft.com/keys/microsoft.asc"
+    state: present
+  become: true
+
+- name: "add microsoft repository"
+  apt_repository:
+    repo: "deb [arch=amd64] https://packages.microsoft.com/ubuntu/{{ ansible_distribution_version }}/prod {{ ansible_distribution_release }} main"
+    filename: "microsoft.list"
+    state: present
+    update_cache: yes
+  become: true
+
+- name: "install latest version"
+  apt:
+    name: "powershell"
+    state: latest
+  become: true

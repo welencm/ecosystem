@@ -1,0 +1,40 @@
+---
+- name: "check if nodejs {{ nodejs_version }} already installed"
+  stat:
+    path: "{{ nodejs_dir }}/bin/node"
+  register: nodejs_binary
+
+- name: "download and unarchive nodejs {{ nodejs_version }}"
+  unarchive:
+    src: "{{ nodejs_url }}"
+    dest: "{{ nodejs_base }}"
+    remote_src: yes
+    owner: "{{ nodejs_owner }}"
+    group: "{{ nodejs_group }}"
+  become: true
+  when: nodejs_binary.stat.exists == false
+
+- name: "create link to current version"
+  file:
+    path: "{{ nodejs_home }}"
+    src: "{{ nodejs_dir }}"
+    state: link
+    owner: "{{ nodejs_owner }}"
+    group: "{{ nodejs_group }}"
+  become: true
+
+- name: "create /usr/bin links"
+  file:
+    path: "/usr/bin/{{ item }}"
+    src: "{{ nodejs_home }}/bin/{{ item }}"
+    state: link
+  with_items:
+    - node
+    - npm
+  become: true
+
+- name: "set environmental variables"
+  template:
+    src: nodejs.sh.j2
+    dest: "/etc/profile.d/nodejs.sh"
+  become: true
