@@ -1,6 +1,44 @@
 ---
-- name: "install"
-  package:
-    name: maven
-    state: present
+- name: "check if maven {{ maven_version }} already installed"
+  stat:
+    path: "{{ maven_dir }}/bin/mvn"
+  register: maven_binary
+
+- name: "download and unarchive maven {{ maven_version }}"
+  unarchive:
+    src: "{{ maven_url }}"
+    dest: "{{ maven_base }}"
+    remote_src: yes
+    owner: "{{ maven_owner }}"
+    group: "{{ maven_group }}"
   become: true
+  when: maven_binary.stat.exists == false
+
+- name: "create link to current version"
+  file:
+    path: "{{ maven_home }}"
+    src: "{{ maven_dir }}"
+    state: link
+    owner: "{{ maven_owner }}"
+    group: "{{ maven_group }}"
+  become: true
+
+- name: "create /usr/bin links"
+  file:
+    path: "/usr/bin/{{ item }}"
+    src: "{{ maven_home }}/bin/{{ item }}"
+    state: link
+  with_items:
+    - mvn
+  become: true
+
+- name: "set environmental variables"
+  template:
+    src: maven.sh.j2
+    dest: "/etc/profile.d/maven.sh"
+  become: true
+
+- name: "create .m2 folder"
+  file:
+    path: "{{ ansible_user_dir }}/.m2"
+    state: directory

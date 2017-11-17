@@ -8,7 +8,7 @@ RUN apt-get update -q && \
     apt-get install -y software-properties-common && \
     apt-add-repository ppa:ansible/ansible && \
     apt-get update -q && \
-    apt-get install -y ansible apt-transport-https zip unzip&& \
+    apt-get install -y ansible apt-transport-https zip unzip tar&& \
     apt-get clean
 
 CMD ["/bin/bash"]

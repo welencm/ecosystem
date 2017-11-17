@@ -6,7 +6,7 @@ MAINTAINER "Michal Welenc" <welencm@gmail.com>
 
 RUN yum -y update && \
     yum -y install epel-release.noarch && \
-    yum -y install ansible which zip unzip && \
+    yum -y install ansible which zip unzip tar && \
     yum clean all
 
 CMD ["/bin/bash"]
