@@ -1,0 +1,40 @@
+---
+- name: "download archive"
+  get_url:
+    url: "{{ postman_url }}"
+    dest: "{{ postman_download_dir }}/{{ postman_archive }}"
+    use_proxy: yes
+    validate_certs: yes
+    mode: 'u=rw,go=r'
+
+- name: "unarchive"
+  unarchive:
+    src: "{{ postman_download_dir }}/{{ postman_archive }}"
+    dest: "{{ postman_base }}"
+    owner: "{{ postman_owner }}"
+    group: "{{ postman_group }}"
+    creates: "{{ postman_home }}"
+  become: true
+
+- name: "create /usr/bin/Postman link"
+  file:
+    path: "/usr/bin/Postman"
+    src: "{{ postman_home }}/Postman"
+    state: link
+    owner: "root"
+    group: "root"
+  become: true
+
+- name: "create desktop file"
+  template:
+    src: "Postman.desktop.j2"
+    dest: "/usr/share/applications/Postman.desktop"
+    owner: "root"
+    group: "root"
+    mode: "u=rw,go=r"
+  become: true
+
+# - name: "delete archive"
+#   file:
+#     path: "{{ postman_download_dir }}/{{ postman_archive }}"
+#     state: absent

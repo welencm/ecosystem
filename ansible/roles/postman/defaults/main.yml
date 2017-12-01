@@ -1,0 +1,10 @@
+---
+postman_base: "/opt"
+postman_home: "{{ postman_base }}/Postman"
+
+postman_url: "https://dl.pstmn.io/download/latest/linux64"
+postman_download_dir: "/tmp"
+postman_archive: "Postman-linux-x64-latest.tar.gz"
+
+postman_owner: "root"
+postman_group: "{{ postman_owner }}"

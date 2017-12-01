@@ -5,7 +5,6 @@ nodejs_base: "/opt"
 nodejs_dir: "{{ nodejs_base }}/node-v{{ nodejs_version }}-linux-x64"
 nodejs_home: "{{ nodejs_base }}/node"
 
-
 nodejs_url: "https://nodejs.org/download/release/v{{ nodejs_version }}/node-v{{ nodejs_version }}-linux-x64.tar.gz"
 
 nodejs_owner: root
