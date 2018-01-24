@@ -1,11 +1,11 @@
 ---
 java:
   major: "8"
-  minor: "151"
+  minor: "162"
   build: "12"
 
 java_url_prefix: "http://download.oracle.com/otn-pub/java/jdk/"
-java_url_hash: "e758a0de34e24606bca991d704f6dcbf"
+java_url_hash: "0da788060d494f5095bf8624735fa2f1"
 java_version: "{{ java.major }}u{{ java.minor }}-b{{ java.build }}"
 java_tgz: "jdk-{{ java.major }}u{{ java.minor }}-linux-x64.tar.gz"
 
