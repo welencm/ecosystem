@@ -1,4 +1,9 @@
 ---
+base_dir: "/opt"
+
+owner: root
+group: "{{ owner }}"
+
 java:
   major: "8"
   minor: "162"
@@ -9,9 +14,5 @@ java_url_hash: "0da788060d494f5095bf8624735fa2f1"
 java_version: "{{ java.major }}u{{ java.minor }}-b{{ java.build }}"
 java_tgz: "jdk-{{ java.major }}u{{ java.minor }}-linux-x64.tar.gz"
 
-java_base: "/opt"
-java_dir: "{{ java_base }}/jdk1.{{ java.major }}.0_{{ java.minor }}"
-java_home: "/opt/jdk"
-
-java_owner: root
-java_group: "{{ java_owner }}"
+java_dir: "{{ base_dir }}/jdk1.{{ java.major }}.0_{{ java.minor }}"
+java_home: "{{ base_dir }}/jdk"
