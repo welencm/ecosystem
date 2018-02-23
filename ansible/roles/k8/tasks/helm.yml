@@ -1,0 +1,46 @@
+---
+- name: "helm : check if already installed"
+  stat:
+    path: "{{ helm_dir }}/linux-amd64/helm"
+  register: helm_binary
+  tags:
+    - helm
+
+- name: "helm : create directory"
+  file:
+    path: "{{ helm_dir }}"
+    state: directory
+  become: true
+  tags:
+    - helm
+
+- name: "helm : download"
+  unarchive:
+    src: "{{ helm_url }}"
+    dest: "{{ helm_dir }}"
+    remote_src: true
+    validate_certs: yes
+  when: helm_binary.stat.exists == false
+  become: true
+  tags:
+    - helm
+
+- name: "helm : link to current version"
+  file:
+    path: "{{ helm_home }}"
+    src: "{{ helm_dir }}"
+    state: link
+    owner: "{{ owner }}"
+    group: "{{ group }}"
+  become: true
+  tags:
+    - helm
+
+- name: "helm : /usr/local/bin link"
+  file:
+    path: "/usr/local/bin/helm"
+    src: "{{ helm_home }}/linux-amd64/helm"
+    state: link
+  become: true
+  tags:
+    - helm

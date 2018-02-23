@@ -1,0 +1,18 @@
+---
+- name: "create base directory"
+  file:
+    path: "{{ base_dir }}"
+    state: directory
+    owner: "{{ owner }}"
+    group: "{{ group }}"
+  become: true
+
+- name: "install helm"
+  include_tasks: "helm.yml"
+  tags:
+    - helm
+
+- name: "install kubectl"
+  include_tasks: "kubectl.yml"
+  tags:
+    - kubectl

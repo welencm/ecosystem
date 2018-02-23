@@ -1,0 +1,35 @@
+---
+- name: "kubectl : check if already installed"
+  stat:
+    path: "{{ kubectl_dir }}/kubectl"
+  register: kubectl_binary
+
+- name: "kubectl : directory for version {{ kubectl_version }}"
+  file:
+    path: "{{ kubectl_dir }}"
+    state: directory
+  become: true
+
+- name: "kubectl : download"
+  get_url:
+    url: "{{ kubectl_url }}"
+    dest: "{{ kubectl_dir }}/kubectl"
+    mode: 0755
+  when: kubectl_binary.stat.exists == false
+  become: true
+
+- name: "kubectl : link to current version"
+  file:
+    path: "{{ kubectl_home }}"
+    src: "{{ kubectl_dir }}"
+    state: link
+    owner: "{{ owner }}"
+    group: "{{ group }}"
+  become: true
+
+- name: "kubectl : /usr/local/bin link"
+  file:
+    path: "/usr/local/bin/kubectl"
+    src: "{{ kubectl_home }}/kubectl"
+    state: link
+  become: true

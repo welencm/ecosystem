@@ -1,0 +1,17 @@
+---
+base_dir: "/opt"
+
+owner: root
+group: "{{ owner }}"
+
+helm_version: "2.8.1"
+helm_home: "{{ base_dir }}/helm"
+helm_dir: "{{ base_dir }}/helm-{{ helm_version }}"
+
+helm_url: "https://kubernetes-helm.storage.googleapis.com/helm-v{{ helm_version }}-linux-amd64.tar.gz"
+
+kubectl_version: "v1.9.3"
+kubectl_home: "{{ base_dir }}/kubectl"
+kubectl_dir: "{{ base_dir }}/kubectl-{{ kubectl_version }}"
+
+kubectl_url: "https://storage.googleapis.com/kubernetes-release/release/{{ kubectl_version }}/bin/linux/amd64/kubectl"
